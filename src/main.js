@@ -177,7 +177,6 @@ export const updateParameter = async () => {
       const deleteBay= async (newPointObject)=>{
         const pointVec3 = vec3.fromValues(newPointObject.point[0],newPointObject.point[1],newPointObject.point[2]);
         // console.log(pointVec3,"pointvec3")
-        // Adjust the y-axis based on the required offset
         const yOffset = 0;
         pointVec3[1] = yOffset;
       
