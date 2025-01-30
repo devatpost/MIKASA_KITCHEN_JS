@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <style>
+    #loadingOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.loaderGif {
+  width: auto;
+  height: auto;
+}
+  </style>
+  <body>
+    <div id="loadingOverlay">
+      <img src="assets/cabinteLoader.gif" alt="Loading..." class="loaderGif">
+    </div>
+    <div id="app">
+      <div class="black-header">
+        <div class="header-icon-container">
+            <a href="https://www.mikasahub.com" target="_self">
+                <img src="assets/LOGO.svg" alt="Icon" class="header-icon">
+            </a>
+            <a href="https://www.mikasahub.com/products" target="_self">
+                <div class="header_heading">Products</div>
+            </a>
+            <a href="https://www.mikasahub.com/blog" target="_self">
+                <div class="header_heading">Explore</div>
+            </a>
+            <a href="https://www.mikasahub.com/contact" target="_self">
+                <div class="header_heading">Contact</div>
+            </a>
+        </div>
+
+        <div class="sideIcon">
+            <img id="newIcon" src="./assets/iIcon.svg" alt="New Icon" data-tooltip="Tutorial">
+            <img id="userInfo" src="./assets/userHeader.svg" alt="New Icon" data-tooltip="User Info">
+            <img id="cartPopup" src="./assets/icon_header.svg" alt="New Icon" data-tooltip="Cart">
+            <!-- <img src="static/svg/menu.svg" alt="New Icon"> -->
+        </div>
+      </div>
+      <div class="widthFull">
+        <div class="canvasCover">
+        <canvas id="canvas" class="canvas"></canvas>
+        </div>
+        <div class="rightBox">
+          <div class="headingBox">
+            <div class="add" id="addButton">Add</div>
+            <div class="style" id="addStyle">Style</div>
+          </div>
+          <div class="rightCover" id="add">
+            <div class="headings">
+              <div class="baseCabinets">Base Cabinets</div>
+              <div class="imagDrag" id="bayButtonsContainer">
+            </div>
+            </div>
+            <div class="headings">
+              <div class="baseCabinets">Wall Cabinets</div>
+              <div class="imagDrag" id="drag">
+                <button id="wall1Btn" class="bayButton">
+                  <img
+                    draggable="false"
+                    width="84"
+                    height="84"
+                    src="/assets/door.svg"
+                    alt="Add Bay 1"
+                  />
+                </button>
+                
+                <button id="wall2Btn" class="bayButton">
+                  <img
+                    draggable="false"
+                    width="84"
+                    height="84"
+                    src="/assets/open_midshelf.svg"
+                    alt="Add Bay 2"
+                  />
+                </button>
+
+            </div>
+            </div>
+          </div>
+          <div class="rightCover" id="style">
+            <div class="headings">
+              <div class="baseCabinets">Door Fronts</div>
+              <div class="imagDrag" id="drag">
+                <button id="bay1Btn" class="bayButton">
+                  <img
+                    draggable="false"
+                    width="84"
+                    height="84"
+                    src="/assets/door.svg"
+                    alt="Add Bay 1"
+                  />
+                </button>
+                
+                <button id="bay2Btn" class="bayButton">
+                  <img
+                    draggable="false"
+                    width="84"
+                    height="84"
+                    src="/assets/open_midshelf.svg"
+                    alt="Add Bay 2"
+                  />
+                </button>
+            </div>
+            </div>
+            <div class="headings">
+              <div class="baseCabinets">Knobs & Handles</div>
+              <div class="imagDrag" id="drag">
+                <button id="wall1Btn" class="bayButton">
+                  <img
+                    draggable="false"
+                    width="84"
+                    height="84"
+                    src="/assets/door.svg"
+                    alt="Add Bay 1"
+                  />
+                </button>
+                
+                <button id="wall2Btn" class="bayButton">
+                  <img
+                    draggable="false"
+                    width="84"
+                    height="84"
+                    src="/assets/open_midshelf.svg"
+                    alt="Add Bay 2"
+                  />
+                </button>
+            </div>
+            </div>
+          </div>
+          <div class="total">
+            <div class="cost">$200.00</div>
+          </div>
+          </div>
+      </div>
+      </div>
+      </div>
+      <div class="footer">
+        <div class="footerBox">
+           <div class="footerInner">
+            <div class="outFlex">
+              <div class="imgFlex">
+                <img src="assets/P_Logo.svg">
+              </div>
+              <div>
+                <span class="footerText">developed by</span>
+              </div>
+            </div>
+            <div class="sameFlex">
+              <img src="assets/clock.svg" class="clock">
+              <div class="flexCol">
+                <div class="upperText">
+                  Lead Time
+                </div>
+                <div class="lowerText">
+                  5-6 Weeks
+                </div>
+              </div>
+            </div>
+            <div class="sameFlex">
+              <img src="assets/flight-takeoff.svg" class="">
+              <div class="flexCol">
+                <div class="upperText">
+                 Our Clientele
+                </div>
+                <div class="lowerText">
+                  globe
+                </div>
+              </div>
+            </div>
+            <div class="sameFlex">
+              <img src="assets/loading.svg" class="clock">
+              <div class="flexCol">
+                <div class="upperText">
+                  Click & Configure
+                </div>
+                <div class="lowerText">
+                  custom design
+                </div>
+              </div>
+            </div>
+            <div class="outFlex">
+              <div class="imgFlex">
+                <img src="assets/shapediver_logo.svg">
+              </div>
+            </div>  
+           </div>
+        </div>
+        <div class="bottomInfo">
+          © 2022 POST 105 Technologies | All Rights Reserved.
+      </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
