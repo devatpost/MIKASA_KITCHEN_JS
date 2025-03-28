@@ -319,7 +319,7 @@ export const updateParameter = async (cabinet) => {
     setTimeout(() => {
         popup.style.display = 'flex';
         overlay.style.display = 'block';
-    }, 1);
+    }, 10000);
 
     document.getElementById('initialPopupCross')?.addEventListener('click', function () {
       const iniPopup=document.getElementById("iniPopup") 
