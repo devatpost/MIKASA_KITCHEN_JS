@@ -6,10 +6,11 @@ import {
     DragManager,
     PlaneConstraint,
   } from "@shapediver/viewer.features.interaction";
-import { allBays, bays, dragManager, updateParameter, viewport } from "./main";
+import { allBays, bc, dragManager, updateParameter, viewport, wc } from "./main";
 import { mat4, quat, vec3, vec2 } from "gl-matrix";
 import { addListener, EVENTTYPE, removeListener } from "@shapediver/viewer";
 import { compareBayMatrices, removeMatrixByComparison } from "./utility";
+import { totalCost } from "./BillOfQuantities";
 
 export const snapPointToBayMap = new Map();
 
@@ -32,12 +33,12 @@ document.body.ontouchend = () => {
 let tokenMove="", tokenEnd="";
 
 
-export const storeBay = (matrices, bayName,index) => {
+export const storeBay = (cabinet,matrices, bayName,index) => {
     const existingMatric = allBays.find(bay => compareBayMatrices(bay.matrices, matrices));
     console.log(existingMatric,bayName)
     if (existingMatric) {
       if (existingMatric.bayName !== bayName) {
-        removeMatrixByComparison(bays[existingMatric.bayName], existingMatric.matrices);
+        removeMatrixByComparison(cabinet[existingMatric.bayName], existingMatric.matrices);
         existingMatric.bayName = bayName;
         console.log(allBays,)
         return true;
@@ -46,24 +47,13 @@ export const storeBay = (matrices, bayName,index) => {
       }
     } else {
       allBays.push({ matrices, bayName ,index });
+      console.log(allBays,"asdlkansdkljansflka")
       return true;
     }
 }
 
-export const storeBayAtIndex = (bay, index) => {
-    // Check if the index already has a bay assigned
-    if (snapPointToBayMap.has(index)) {
-      console.log(`Replacing existing bay at index ${index} with new bay: ${bay}`);
-    } else {
-      console.log(`Storing new bay at index ${index}: ${bay}`);
-    }
-  
-    // Set the bay at the specified index (will replace if it already exists)
-    snapPointToBayMap.set(index, bay);
-  };
 
-
-  export const handleAddShelf = async (def, bayName) => {
+  export const handleAddShelf = async (cabinet,def, bayName) => {
     removeListener(tokenMove);
     removeListener(tokenEnd);
 
@@ -102,8 +92,9 @@ export const storeBayAtIndex = (bay, index) => {
     
     // Find the node with the last id, this one is currently hidden
     const newNode = def.output.node?.getNodesByName(
-        def.output.name + "_" + (def.counter - 1)
+        `${def.counter-1}`
     )[0];
+    console.log(newNode,"newNode",def.output.node.getNodesByName(`${def.counter-1}`))
     
     // Enable dragging for this node
     const data = new InteractionData({ drag: true });
@@ -167,14 +158,15 @@ export const storeBayAtIndex = (bay, index) => {
 
         console.log("MatrixObject:", matrixObject);
 
-        const xTranslation = transformationMatrix[3];
+        let xTranslation = transformationMatrix[3];
         const specificSnap = def.snapPoints.find(info => info.point[0] === xTranslation);
+        console.log(xTranslation,specificSnap,def.snapPoints,"newew")
+
         let index = specificSnap ? specificSnap.index : undefined;
         
         console.log("Snap index:", index);
 
-        if (index !== undefined && storeBay(matrixObject, bayName, index)) {
-            storeBayAtIndex(bayName, index);
+        if (index !== undefined && storeBay(cabinet,matrixObject, bayName, index)) {
             def.matrices[def.matrices.length - 1].rotation = rotationMatrix;
             def.matrices[def.matrices.length - 1].transformation = transformationMatrix;
             def.matrices[def.matrices.length - 1].translation = translationMatrix;
@@ -188,12 +180,13 @@ export const storeBayAtIndex = (bay, index) => {
             }
 
             def.counter++;
-            await updateParameter();
             console.log("Updated matrices and parameters for bay:", def);
+            updateParameter(cabinet);
+            totalCost(allBays,bc,wc);
         } else {
             console.log("Snap index not found or storeBay failed");
             newNode.visible = false;
-            newNode.updateVersion();
+            newNode.updateVersion(def);
         }
 
         viewport.update();

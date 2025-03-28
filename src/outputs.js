@@ -6,7 +6,7 @@ import { calcStaticSnapPoints } from "./snapPoints";
 // Module-level variables to store values
 let bay_number,bay_length;
 
-export const outputDisplay = async (session,bays)=> {
+export const outputDisplay = async (session,bc,wc)=> {
   try {
     const outputs = session.outputs;
     for (const outputId in outputs) {
@@ -15,15 +15,19 @@ export const outputDisplay = async (session,bays)=> {
         if (output && output.content && output.content[0]) {
           const data = output.content[0].data;
           const outputName = output.name;
+          console.log(output.name)
           // Store the values of bay_number and bay_length
           if (outputName === "bay_number" && typeof data === "number") {
             bay_number = data;
           } else if (outputName === "bay_length" && typeof data === "number") {
             bay_length = data;
-          } else if (outputName === "snap_points") {
+          } else if (outputName == "base_snapPoints") {
             console.log(output,"outputss")
-            await calcStaticSnapPoints(data, data.length, 3, 300,bays);
-          } else if (outputName === "SnapSkeleton") {
+            await calcStaticSnapPoints(data, data.length, 3, 300,bc);
+          } else if (outputName == "wall_snapPoints") {
+            console.log(output,"outputss")
+            await calcStaticSnapPoints(data, data.length, 3, 300,wc);
+          }  else if (outputName === "SnapSkeleton") {
             // const nodes = output.node?.getNodesByNameWithRegex(/^primitive_/);
             // if(process.env.Snap_Skeleton_Interaction === "true"){
             // if (nodes && nodes.length > 0) {

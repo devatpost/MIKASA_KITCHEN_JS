@@ -1,0 +1,155 @@
+
+/* Full screen overlay to center the popup */
+.popup-overlay {
+    width: 529px;
+    height: 395px;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0 0, 0, 0.5);
+    /* Background overlay */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .custom {
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+  }
+  
+  /* Popup container styling */
+  .popup-container {
+    background-color: #ffffff;
+    width: 600px;
+    height: 400px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+    border: 1px solid #ccc;
+    /* Centers the content vertically */
+  }
+  
+  /* Inner div with 10px margin */
+  .popup-inner {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 362px;
+    justify-content: space-between;
+    margin: 19px;
+    gap:20px
+  
+  }
+  
+  /* Left section (Text) */
+  .popup-left {
+    flex: 0 0 55%;
+    /* Make it take 40% of the width */
+    margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgb(224, 223, 223); */
+    min-width: 49%;
+    line-height: 29px;
+  }
+  
+  /* Main text (common class for both popups) */
+  .popup-main-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #000000;
+    line-height: 40px;
+    padding-top: 2px;
+  }
+  
+  /* Subtext (slightly lower than the main text) */
+  .popup-subtext {
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    color: #7C7C7C;
+    line-height: 18px;
+  }
+  
+  .explore-button {
+    background-color: #A89378;
+    color: #111111;
+    width: 154px;
+    height: 32px;
+    /* padding: 6px 12px;  */
+    border-radius: 7.81px;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    margin-top: 40px;
+    font-size: 16px;
+    font-weight: normal;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .explore-button-1 {
+    background-color: #A89378;
+    color: #111111;
+    width: 154px;
+    height: 32px;
+    /* padding: 6px 12px;  */
+    border-radius: 7.81px;
+    border: none;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: normal;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .explore-button:hover {
+    background-color: #ffffff;
+    color: #111111;
+    border: 1px solid #444444;
+  
+  }
+  
+  .popupIcon {
+    width: 16px;
+    height: 12px;
+  }
+  
+  .back-link {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11px;
+    color: gray;
+    text-decoration: none;
+  }
+  
+  /* Right section (Image) */
+  
+  .popup-right {
+    flex: 0 0 38%;
+    display: flex;
+    overflow: hidden;
+  }
+  
+  .popup-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+  

@@ -12,6 +12,7 @@ export function compareMat4(matrix1, matrix2) {
   
   
   export function compareBayMatrices(matrices1, matrices2) {
+    console.log(matrices1,matrices2)
     return (
       compareMat4(matrices1.transformation, matrices2.transformation) &&
       compareMat4(matrices1.rotation, matrices2.rotation) &&
@@ -19,14 +20,15 @@ export function compareMat4(matrix1, matrix2) {
     );
   }
 
-  export const removeMatrixByComparison = async (bay, matrixToRemove) => {
-    const matrixIndex = bay.matrices.findIndex(existingMatrix =>
+  export const removeMatrixByComparison = async (parent, matrixToRemove) => {
+    console.log(parent,"aprenttntn")
+    const matrixIndex = parent.matrices.findIndex(existingMatrix =>
       compareBayMatrices(existingMatrix, matrixToRemove)
     );
     if (matrixIndex !== -1) {
-      // Remove the matrix and update bay counter
-      bay.matrices.splice(matrixIndex, 1);
-      bay.counter=bay.counter-1;
+      // Remove the matrix and update parent counter
+      parent.matrices.splice(matrixIndex, 1);
+      parent.counter=parent.counter-1;
     //   setCustomizationInProgress(true);
   
     //   updateCountOfBays(bay, bay?.output?.name || "");

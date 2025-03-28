@@ -47,10 +47,10 @@
         </div>
 
         <div class="sideIcon">
-            <img id="newIcon" src="./assets/iIcon.svg" alt="New Icon" data-tooltip="Tutorial">
+            <!-- <img id="newIcon" src="./assets/iIcon.svg" alt="New Icon" data-tooltip="Tutorial"> -->
             <img id="userInfo" src="./assets/userHeader.svg" alt="New Icon" data-tooltip="User Info">
             <img id="cartPopup" src="./assets/icon_header.svg" alt="New Icon" data-tooltip="Cart">
-            <!-- <img src="static/svg/menu.svg" alt="New Icon"> -->
+            <!-- <img src="assets//menu.svg" alt="New Icon"> -->
         </div>
       </div>
       <div class="widthFull">
@@ -58,43 +58,85 @@
         <canvas id="canvas" class="canvas"></canvas>
         </div>
         <div class="rightBox">
+          <div class="iconOuter" id="iconOuter">
+            <div id="iconContainer" class="icon-container">
+          
+                <div id="extrasIcon" class="c-button-round extras control-btn" data-tooltip="Extras">
+                    <img src="assets//extras.svg" alt="Extras Icon" class="svg-icon">
+                </div>
+          
+                <!-- Extras Menu -->
+                <div id="extrasMenu" class="extras-menu" style="display: none;">
+                    <!-- <div id="previewDimensionsButton" class="menu-item">
+                        <img src="assets//dimensions.svg"  class="menu-icon">
+                        <span id="menuTextDimensions" class="menu-text selected">Dimensions</span>
+                    </div>
+                    <div id="previewWallButton" class="menu-item">
+                        <img src="assets//scene.svg" alt="Scene" class="menu-icon">
+                        <span id="menuTextScene" class="menu-text selected">Scene</span>
+                    </div> -->
+                    <div id="previewShuttersButton" class="menu-item">
+                        <img src="assets//shutters.svg" alt="Shutters" class="menu-icon">
+                        <span id="menuTextShutters" class="menu-text selected">Shutters</span>
+                    </div>
+                    <div id="previewSnapPoints" class="menu-item">
+                      <div class="blackCircle"></div>
+                      <span id="menuTextShutters" class="menu-text selected">Snap Points</span>
+                  </div>
+                    <!-- <div id="previewObjectsButton" class="menu-item">
+                        <img src="assets//objects.svg" alt="Objects" class="menu-icon">
+                        <span id="menuTextObjects" class="menu-text selected">Objects</span>
+                    </div>
+                    <div id="previewLabelsButton" class="menu-item">
+                        <img src="assets//labelsOn.svg" alt="Dimensions" class="menu-icon" id="labelOff">
+                        <img src="assets//labelsOff.svg" alt="Dimensions" class="menu-icon" id="labelOn">
+                        <span id="menuTextLabels" class="menu-text ">Labels</span>
+                    </div> -->
+                </div>
+                <!-- <div id="defaultIcon" class="c-button-round default control-btn" data-tooltip="Default">
+                    <img src="assets//default.svg" alt="Default Icon" class="svg-icon">
+                </div> -->
+                <!-- <div id="arIcon" class="c-button-round ar control-btn" onclick="window.loadAR()">
+                    <img src="assets//ar_icon.svg" alt="AR Icon" class="svg-icon">
+                    <span class="hover-text">AR</span>
+                </div> -->
+          
+                <!-- <div id="unitIcon" class="c-button-round unit control-btn" data-tooltip="Unit">
+                    <img src="assets//unit_mm.svg" alt="Unit Icon" class="svg-icon" id="unitIconImage">
+                </div> -->
+                
+                <div id="screenshotIcon" class="c-button-round screenshot control-btn" data-tooltip="Screenshot">
+                    <img src="assets//screenshot.svg" alt="Screenshot Icon" class="svg-icon">
+                </div>
+                
+          
+          
+            </div>
+          </div>
+          <div class="download" id="downloadBox">
+            <div class="relPos">
+              <img src="assets/Downloads.jpg" alt="Downlaods Icon" class="download-icon">
+              <div class="downloadBox" id="downloads">
+              </div>
+            </div>
+          </div>
           <div class="headingBox">
-            <div class="add" id="addButton">Add</div>
-            <div class="style" id="addStyle">Style</div>
+            <div class="add" id="addButton">Configure</div>
+            <!-- <div class="style" id="addStyle">Style</div> -->
           </div>
           <div class="rightCover" id="add">
             <div class="headings">
               <div class="baseCabinets">Base Cabinets</div>
-              <div class="imagDrag" id="bayButtonsContainer">
+              <div class="imagDrag" id="baseCabinetContainer">
             </div>
             </div>
             <div class="headings">
               <div class="baseCabinets">Wall Cabinets</div>
-              <div class="imagDrag" id="drag">
-                <button id="wall1Btn" class="bayButton">
-                  <img
-                    draggable="false"
-                    width="84"
-                    height="84"
-                    src="/assets/door.svg"
-                    alt="Add Bay 1"
-                  />
-                </button>
-                
-                <button id="wall2Btn" class="bayButton">
-                  <img
-                    draggable="false"
-                    width="84"
-                    height="84"
-                    src="/assets/open_midshelf.svg"
-                    alt="Add Bay 2"
-                  />
-                </button>
-
+              <div class="imagDrag" id="wallCabinetContainer">
             </div>
             </div>
           </div>
-          <div class="rightCover" id="style">
+          <!-- <div class="rightCover" id="style">
             <div class="headings">
               <div class="baseCabinets">Door Fronts</div>
               <div class="imagDrag" id="drag">
@@ -143,13 +185,11 @@
                 </button>
             </div>
             </div>
-          </div>
+          </div> -->
           <div class="total">
-            <div class="cost">$200.00</div>
+            <div class="cost" id="totalPrice">$200.00</div>
           </div>
           </div>
-      </div>
-      </div>
       </div>
       <div class="footer">
         <div class="footerBox">
@@ -207,6 +247,184 @@
       </div>
       </div>
     </div>
+      <!-- popups -->
+  <div class="popup-overlay-input" id="iniPopupOverlay"></div>
+  <!-- Bill of Quantites -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <div class="topHead">
+        <img src="assets/blackCross.svg" id="closePopup">
+      </div>
+      <div class="headPop">
+        Bill of Quantities
+      </div>
+      <div class="popup-table">
+        <div class="popup-rows">
+          <div  class="center">Name</div>
+          <div class="center">Quantity (u)</div>
+          <div class="center">Rate ($)</div>
+          <div class="center">Amount</div>
+        </div>
+        <!-- Dynamic rows will go here -->
+        <div id="popupRows"></div>
+      </div>
+    </div>
+  </div>
+  <!-- user Popup -->
+  <div class="inputpopup" id="iniPopup">
+      <div class="outerBoxInitial">
+          <div class="leftBoxInitial">
+              <div>
+                  <div class="userInfoPopup-main-text-2">
+                      WELCOME TO MIKASA !
+                  </div>
+                  <div class="userInfoPopup-subtext-2">
+                     You are 2 steps away from awesomeness.
+                  </div>
+              </div>
+              <div class="namePopup">
+                  <div class="customShift1">
+                      <div class="headFont">Name*</div>
+                      <input type="text" id="name-input" placeholder="Enter your Name" class="ininput"/>
+                      <div id="nameError" class="error-input1">
+                          <img src="assets/Error.svg" alt="Error" class="error_input">
+                          <p class="error_handler_input">Enter the right name</p>
+                      </div>
+                  </div>
+                  <div class="customShift2">
+                      <div class="headFont">Email*</div>
+                      <input type="email" id="email-input" placeholder="Enter your Email" class="ininput"/>
+                      <div id="emailError" class="error-input2">
+                          <img src="assets/Error.svg" alt="Error" class="error_input">
+                          <p class="error_handler_input">Enter the right email</p>
+                      </div>
+                  </div>
+                  <div class="input-section">
+                      <label for="roleType" class="headFont">User Type*</label>
+                      <div class="radio-container" id="roleType">
+                          <div class="radio-items_1">
+                              <input type="radio" id="producer" name="roleType" value="Manufacturer" checked>
+                              <label for="producer" class="headFont">Manufacturer</label>
+                          </div>
+                          <div class="radio-items_1">
+                              <input type="radio" id="designer" name="roleType" value="Interior Designer">
+                              <label for="designer" class="headFont">Designer</label>
+                          </div>
+                      </div>
+                  </div>                    
+              </div>
+              <div>
+                  <div id="continue-btn" class="buttonPopup">
+                      <div class="configurePopup">
+                          <span class="customSpan" id="configure">
+                              Start Configuring >
+                          </span>
+                      </div>
+                  </div>
+                  <div class="bottomPopup">
+                      <span>
+                          New to MIKASA configurator? Take a quick <span id="">tour</span>.   
+                       </span>
+                  </div>
+              </div>
+          </div>
+          <div class="initialPopupImg">
+              <div class="close-popup-button" id="initialPopupCross">
+                  <img src="assets/blackCross.svg" alt="Close" class="close-cross">
+              </div>
+              <img src="assets/iniPop.svg" alt="Loading..." >
+          </div>
+      </div>
+  </div>
+
+  <!-- chosse us popup -->
+  <div id="chooseUsPopup" class="popup-overlay hidden">
+    <div class="popup-container">
+        <!-- Left section with text -->
+        <div class="popup-inner">
+            <div class="popup-left">
+                <div class="popup-main-text">THANK YOU FOR YOUR VISIT</div>
+                <div class="popup-subtext">As a manufacturer, integrate any e-commerce platform to your website. Reach out to know more.</div>
+                <button class="explore-button" id="contact" onclick="window.location.href='https://www.mikasahub.com/contact'">
+                    Reach Out >
+                </button>
+                <button class="explore-button-1" onclick="window.location.href='https://www.mikasahub.com/blank-2'">
+                    Explore more >
+                </button>
+                <div class="popup-line"></div>
+                <!-- <span class="back-link">Back to the configurator</span> -->
+            </div>
+            <!-- Left section with text -->
+
+            <div class="popup-right">
+                <div class="close-popup-button" id="chooseUsPopupCross">
+                    <img src="assets/blackCross.svg" alt="Close" class="close-cross">
+                </div>
+                <img src="assets/userInfoPopup.svg" alt="Popup Image" class="popup-image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Download Popup -->
+<div id="userInfoPopup" class="popup-overlay hidden ">
+  <div class="userInfoPopup-container">
+      <div class="userInfoPopup-inner">
+          <div class="userInfoPopup-left">
+              <div class="popupHeading">
+                  <div class="userInfoPopup-main-text">YOUR DOWNLOAD AWAITS YOU! </div>
+                  <div class="userInfoPopup-subtext">Great ideas, faster results! This is to send the models and drawings on your email.
+                  </div>
+              </div>
+              <!-- Name Field -->
+              <div class="input-field-container">
+                  <div class="input-field">
+                      <label for="userName">Name*</label>
+                      <input type="text" id="userName" name="userName" placeholder="Your Name" >
+                      <img src="assets/Error.svg" alt="Error" class="error">
+                      <p class="error_handler">Enter the right name</p>
+                  </div>
+
+                  <!-- Email Field -->
+                  <div class="input-field">
+                      <label for="userEmail">Email*</label>
+                      <input id="userEmail" name="userEmail" placeholder="Your Email" >
+                      <img src="assets/Error.svg" alt="Error" class="error">
+                      <p class="error_handler">Enter the right email</p>
+                  </div>
+                  <!-- Radio Buttons for User Type -->
+                  <div class="input-field">
+                      <label for="userType">User Type*</label>
+                      <div class="radio-group" id="userType">
+                          <div class="radio-options">
+                              <input type="radio" id="manufacturer" name="userType" value="Manufacturer">
+                              <label for="manufacturer">Manufacturer</label>
+                          </div>
+                          <div class="radio-options">
+                              <input type="radio" id="interiorDesigner" name="userType" value="Interior Designer">
+                              <label for="interiorDesigner">Designer</label>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="userInfoPopup-buttonBox">
+                  <button id="userInfoSumbit" class="userInfo-button">
+                      <span class="infoSubmit">Submit ></span>
+                  </button>
+              </div>
+          </div>
+          <div class="userInfoPopup-right">
+              <div class="close-popup-button" id="downloadPopupCross">
+                  <img src="assets/blackCross.svg" alt="Close" class="close-cross">
+              </div>
+              <img src="assets/downPop.svg" alt="Popup Image" class="userInfoPopup-image">
+          </div>
+      </div>
+  </div>
+</div>
+
+ <!-- icons bar -->
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
