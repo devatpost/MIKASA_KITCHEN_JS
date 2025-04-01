@@ -1,4 +1,6 @@
-export async function requestExport(session, exportNames) {
+import { Excel } from "./excelDownlaod";
+
+export async function requestExport(session, exportNames,userName,userEmail) {
     for (const exportName of exportNames) {
         const downloadExports = session.getExportByName(exportName);
         try {
@@ -12,6 +14,8 @@ export async function requestExport(session, exportNames) {
                     cutSheet.value = false;
                     await session.customize();
                 }
+            } else if(exportName === "Download Excel"){
+                Excel(userName,userEmail)
             }
             else {
                 // const Process_PDF = Object.values(session.parameters).find(param => param.name === 'Process_PDF');

@@ -96,7 +96,7 @@ export function setupFormListener(session,selectedExports) {
         // After form submission, trigger the export when selected
         if (selectedExports.length>0) {
             for (const exportObject of selectedExports) {
-                await requestExport(session, [exportObject]); // Pass the name of each selected export
+                await requestExport(session, [exportObject],userName,userEmail); // Pass the name of each selected export
             }     
             if(selectedExports.includes("Email 2D CAD Drawing")){
                 //Dont send mail as it is already contained in CAD Mail

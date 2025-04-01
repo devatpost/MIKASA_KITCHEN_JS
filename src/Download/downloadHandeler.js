@@ -1,5 +1,9 @@
 import { setupFormListener } from "./formListeners";
 
+const downloadExcel={
+  name:"Download Excel"
+}
+
 export const createDownloadHandler = (session) => {
     const downloadContainer = document.getElementById("downloads");
     if (!downloadContainer) return; // Ensure the container exists
@@ -10,7 +14,7 @@ export const createDownloadHandler = (session) => {
     let downloadExports = Object.values(session.exports).filter(
       (field) => field.type === "download"
     );
-    // downloadExports=[...downloadExports,...downloadExports]
+    downloadExports=[...downloadExports , downloadExcel ]
     downloadExports.forEach((item) => {
       // Create a wrapper div for image and checkbox
       const wrapper = document.createElement("div");

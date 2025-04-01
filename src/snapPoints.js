@@ -74,13 +74,12 @@ export const calcStaticSnapPoints = async (data, len, bayNumber, bayLength, cabi
   }
 
   const points = [];
-  let index = Math.trunc(bayNumber / 2) * -1;
 
   for (let i = 0; i < len; i++) {
     const x = data[i][0];
     const z=data[i][2]
     const newPoint = {
-      index: index + i,
+      index: i,
       point: vec3.fromValues(x, 0, z),
       radius: 500,
       rotation: {

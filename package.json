@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@shapediver/viewer": "^3.7.3",
-    "@shapediver/viewer.features.interaction": "^3.7.3"
+    "@shapediver/viewer.features.interaction": "^3.7.3",
+    "neo4j-driver": "^5.28.1",
+    "xlsx": "^0.18.5"
   }
 }

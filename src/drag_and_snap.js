@@ -11,6 +11,7 @@ import { mat4, quat, vec3, vec2 } from "gl-matrix";
 import { addListener, EVENTTYPE, removeListener } from "@shapediver/viewer";
 import { compareBayMatrices, removeMatrixByComparison } from "./utility";
 import { totalCost } from "./BillOfQuantities";
+import { handleSnapBoxesRemoval } from "./SnapBoxes";
 
 export const snapPointToBayMap = new Map();
 
@@ -182,6 +183,7 @@ export const storeBay = (cabinet,matrices, bayName,index) => {
             def.counter++;
             console.log("Updated matrices and parameters for bay:", def);
             updateParameter(cabinet);
+            handleSnapBoxesRemoval(index,def);
             totalCost(allBays,bc,wc);
         } else {
             console.log("Snap index not found or storeBay failed");

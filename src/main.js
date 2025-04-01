@@ -5,8 +5,8 @@ import "./styles/initialPopup.css";
 import "./styles/cartPopup.css";
 import "./styles/downloadPopup.css";
 import "./styles/billOfQuantities.css";
-
-
+import "./styles/material.css"
+import "./styles/tooltip.css"
 import { createSession, VISIBILITY_MODE } from '@shapediver/viewer';
 import { createViewport } from '@shapediver/viewer';
 import * as SDV from "@shapediver/viewer";
@@ -22,17 +22,24 @@ import { createDownloadHandler } from "./Download/downloadHandeler";
 import { toggleShutter } from "./toggleShutter";
 import { populatePopupTable, totalCost } from "./BillOfQuantities";
 import { handleScreenshot } from "./Download/screenshot";
+import { materialUI } from "./Materials/materialUI";
+import { fetchMaterials } from "./Materials/dynamicMaterial";
+import { createTooltip } from "./tooltip";
+import { loadAR } from "./arIntegration";
+import { handleSnapBoxesAddition } from "./SnapBoxes";
+import { deleteCabinetHandeler } from "./deleteCabinets";
+import { eventListenersSetup } from "./eventListeners";
 
 export let viewport;
-let session;
+export let session;
 let bayNumber;
 let bayLength;
 export let dragManager;
 let hoverManager;
-let selectManager;
+export let selectManager;
 export let allBays= [];
-export const bc = {}; // Object to store bay objects dynamically
-export const wc={}
+export let bc = {}; // Object to store bay objects dynamically
+export let wc={}
 
 export const updateParameter = async (cabinet) => {
   for (const bayKey in cabinet) {
@@ -101,7 +108,7 @@ export const updateParameter = async (cabinet) => {
     });
     session = await createSession({
       ticket:
-      "57edf425b3277a4fca6f8a817f8bc1ebe8abe8dc2ea51278e4ed0c6b0eec73c4d66ceb35804e1ba725903a2fe417bbb22c2a213e0aa44c84ef7301eeee221968a8a27671cc6c6b491ed2fa71a1db2bdbd5806a5cb6bd4e1529322440d6369c57b379045f4bbf32-e1bfd602a27952ba5dbf84e94400ddeb",
+      "e2697eec9e2271f00bd0690c70561442a91ce772b47d466a35676d91d786ab5ce65a2727df832bcc57e8f2307cfd67e3dbdfb2bd636bf171462d28b677b69fd1bf9a4e79eb27cdafff1e5048a911064e5162788b105e0b53f5aeb67afedc3e6e7eb65b76cfe998-6f459bf8946360447c2952c24a445601",
       modelViewUrl: "https://sdr8euc1.eu-central-1.shapediver.com",
       id: "mySession"
     });
@@ -124,6 +131,7 @@ export const updateParameter = async (cabinet) => {
 
 
     Object.values(outputs).forEach(output => {
+      console.log(output,output.name)
       if (output.name.startsWith("bc") && output.name!="bay_number" && output.name!="bay_length") {
         console.log(output.name)
         console.log("inin")
@@ -206,9 +214,15 @@ export const updateParameter = async (cabinet) => {
           }
       }
   });
-    console.log("Bays:", bc,wc);
-    
-
+  bc = Object.fromEntries(
+    Object.entries(bc).sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+  );
+  wc = Object.fromEntries(
+    Object.entries(wc).sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+  );
+  
+  
+  console.log("Bays:", bc,wc);
     await updateParameter(bc);
     await updateParameter(wc);
 
@@ -230,196 +244,12 @@ export const updateParameter = async (cabinet) => {
     addAndStyle();
     createUI(bc,"baseCabinetContainer")
     createUI(wc,"wallCabinetContainer")
+    materialUI()
+    fetchMaterials(session);
     createDownloadHandler(session)
     toggleShutter(session)
     totalCost(allBays,bc,wc)
-    const selectToken=SDV.addListener(SDV.EVENTTYPE.INTERACTION.SELECT_ON, (e) => {
-      const selectEvent = e ;
-      const selectedNode = selectEvent.node;
-      console.log("Node selected:", selectedNode.parent.name);
-      let parentNode=selectedNode.parent.name;
-      let parentGroup=null;
-      if(parentNode.includes("bc")){
-        parentGroup=bc
-      }else if(parentNode.includes("wc")){
-        parentGroup=wc
-      }
-      // Get the center point
-      const center = selectedNode.boundingBox.boundingSphere.center[0];
-      const snapInfo=Object.values(parentGroup)[0].snapPoints.find(snappoint => snappoint.point[0]===center)
-      console.log(snapInfo,"asdnaisndaodnoaks")
-      let index=0;
-      if(snapInfo){
-          index=snapInfo.index;
-      }
-      // Create the new point object
-      const newPoint = vec3.fromValues(snapInfo.point[0], snapInfo.point[1], snapInfo.point[2]);
-      const newPointObject = {
-          point: newPoint,
-          radius: 500,
-          rotation: {
-              axis: vec3.fromValues(0, 0, 1),
-              angle: 0
-          }
-      };
-
-      const deleteBay= async (newPointObject)=>{
-        const pointVec3 = vec3.fromValues(newPointObject.point[0],newPointObject.point[1],newPointObject.point[2]);
-        // console.log(pointVec3,"pointvec3")
-        const yOffset = 0;
-        pointVec3[1] = yOffset;
-      
-        // Create the transformation matrix manually
-        const transformationMatrix = mat4.create();
-        transformationMatrix[3] = pointVec3[0];  // X translation 
-        transformationMatrix[7] = pointVec3[1];  // Y translation 
-        transformationMatrix[11] = pointVec3[2]; // Z translation 
-      
-        let translationMatrix=mat4.create()
-        mat4.multiply(
-          translationMatrix,
-          translationMatrix,
-          mat4.transpose(mat4.create(), transformationMatrix)
-        );
-        // Create the matrix object for the selected bay
-        const matrixObject = {
-          transformation: mat4.clone(transformationMatrix),
-          rotation: mat4.create(),
-          translation: mat4.clone(translationMatrix),
-        };
-        console.log(matrixObject,"matrixxiix",allBays)
-        const existingMatric = allBays.find(bay => bay.bayName.includes(parentNode) && compareBayMatrices(bay.matrices, matrixObject));
-        console.log(existingMatric)
-        removeMatrixByComparison(parentGroup[existingMatric.bayName], existingMatric.matrices);
-        const allBayIndex = allBays.findIndex(mat =>
-            compareBayMatrices(mat.matrices, matrixObject)
-          );
-          if(allBayIndex!=-1)
-        allBays.splice(allBayIndex, 1);
-        await updateParameter(parentGroup)
-        totalCost(allBays,bc,wc);
-        // colorButton(newPointObject)
-    }
-
-    deleteBay(newPointObject)
-  });
-      console.log("Initialization complete");
-      document.getElementById("loadingOverlay").style.display = "none";
-      //user info popup
-    const popup = document.querySelector('.inputpopup');
-    const overlay = document.querySelector('.popup-overlay-input') ;
-    const configure = document.getElementById('configure');
-    configure.addEventListener('click', () => {
-      // Get the currently checked radio button
-      const selectedRadio = document.querySelector('input[name="roleType"]:checked');
-      const userType = selectedRadio ? selectedRadio.value : ''; // Fallback to empty string if none selected
-
-      handleInputsForDownloads(userType);
-    });
-    setTimeout(() => {
-        popup.style.display = 'flex';
-        overlay.style.display = 'block';
-    }, 10000);
-
-    document.getElementById('initialPopupCross')?.addEventListener('click', function () {
-      const iniPopup=document.getElementById("iniPopup") 
-      const overlay=document.getElementById("iniPopupOverlay")
-      iniPopup.style.display="none"
-      overlay.style.display="none"
-    });
-    
-    document.getElementById('userInfo')?.addEventListener('click', function () {
-      const iniPopup=document.getElementById("iniPopup") 
-      const overlay=document.getElementById("iniPopupOverlay")
-      iniPopup.style.display = 'flex';
-      overlay.style.display = 'block';
-    });
-    
-    document.getElementById('chooseUsPopupCross')?.addEventListener('click', function () {
-      const chooseUsPopup=document.getElementById("chooseUsPopup")
-      chooseUsPopup.style.display="none"
-    });
-    
-    
-    document.getElementById('cartPopup')?.addEventListener('click', function () {
-      const chooseUsPopup=document.getElementById("chooseUsPopup")
-      chooseUsPopup.style.display="flex"
-    });
-
-    const extrasMenu = document.getElementById("extrasMenu");
-    const extrasIcon = document.getElementById("extrasIcon"); // The button that opens the menu
-    
-    extrasIcon.addEventListener("click", (event) => {
-      event.stopPropagation(); // Prevent immediate closing
-    
-      if (extrasMenu.style.display === "none" || extrasMenu.style.display === "") {
-        extrasMenu.style.display = "flex";
-        
-        // Outside click event listener
-        setTimeout(() => {
-          document.addEventListener("click", outsideClick);
-        }, 0);
-      } else {
-        extrasMenu.style.display = "none";
-        document.removeEventListener("click", outsideClick);
-      }
-    });
-    
-    function outsideClick(event) {
-      // Close menu if clicked outside
-      if (!extrasMenu.contains(event.target) && event.target !== extrasIcon) {
-        extrasMenu.style.display = "none";
-        document.removeEventListener("click", outsideClick);
-      }
-    }
-
-    const downloadBox=document.getElementById("downloadBox");
-    const downloadIconContainer=document.getElementById("downloads");
-    downloadBox.addEventListener("click",()=>{
-         downloadIconContainer.style.display="flex";
-    })
-    const downloadPopupCross=document.getElementById("downloadPopupCross");
-    downloadPopupCross.addEventListener("click",()=>{
-      downloadIconContainer.style.display="none";
-      const iniPopup=document.getElementById("iniPopup") 
-      const overlay=document.getElementById("iniPopupOverlay")
-      iniPopup.style.display = 'none';
-      overlay.style.display = 'none';
-      const downloadPopup=document.getElementById("userInfoPopup");
-      downloadPopup.style.display="none"
-    })
-
-    const popupBill = document.getElementById('popup');
-    const priceButton=document.getElementById("totalPrice");
-    priceButton.addEventListener("click",()=>{
-      populatePopupTable(allBays,bc,wc); // Populate table with current data
-      popupBill.style.display = 'flex'; // Show the popup
-    })
-
-    const closePopupBtn = document.getElementById('closePopup');
-    closePopupBtn.addEventListener('click', () => {
-      popupBill.style.display = 'none'; // Hide the popup
-    });
-
-    let snapPointToggle=false;
-    const snapPointButton=document.getElementById("previewSnapPoints");
-    snapPointButton.addEventListener("click",()=>{
-      const circles = document.getElementsByClassName("anchor-point");
-
-      if (snapPointToggle) {
-          Array.from(circles).forEach(circle => {
-              circle.style.display = "flex";
-          });
-      } else {
-          Array.from(circles).forEach(circle => {
-              circle.style.display = "none";
-          });
-      }
-      snapPointToggle=!snapPointToggle
-    })
-
-    const screenshotIcon = document.getElementById('screenshotIcon');
-    screenshotIcon.addEventListener("click",handleScreenshot);
+    eventListenersSetup()  
   } catch (error) {
     console.error("Error initializing ShapeDiver:", error);
   }

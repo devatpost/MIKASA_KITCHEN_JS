@@ -1,4 +1,4 @@
-const cabinetMapping= {
+export const cabinetMapping= {
   bc1:"Base Cabinet Type 1",
   bc2:"Base Cabinet Type 2",
   bc3:"Base Cabinet Type 3",
@@ -7,7 +7,7 @@ const cabinetMapping= {
   wc3:"Wall Cabinet Type 3",
 }
 
-const cabinetCostMapping= {
+export const cabinetCostMapping= {
     bc1:25,
     bc2:50,
     bc3:75,
@@ -44,7 +44,7 @@ export const populatePopupTable =(allBays,bc,wc)=> {
     console.log(totalTypesBC,totalTypesWC)
 
 
-    function createPopupRow(name, quantity, pricePerUnit) {
+    function createPopupRow(name, quantity, pricePerUnit,type) {
       const total = quantity * pricePerUnit;
       const row = document.createElement('div');
       row.className = 'popup-row';
@@ -61,7 +61,7 @@ export const populatePopupTable =(allBays,bc,wc)=> {
        const baseCabinet= allBays.filter(bc => bc.bayName === type);
        console.log(baseCabinet)
        if(baseCabinet)
-       createPopupRow(cabinetMapping[type],baseCabinet.length,cabinetCostMapping[type])
+       createPopupRow(cabinetMapping[type],baseCabinet.length,cabinetCostMapping[type],"bc")
     })
 
     totalTypesWC.forEach(type=>{
@@ -69,7 +69,6 @@ export const populatePopupTable =(allBays,bc,wc)=> {
         console.log(baseCabinet)
 
         if(baseCabinet)
-        createPopupRow(cabinetMapping[type],baseCabinet.length,cabinetCostMapping[type])
+        createPopupRow(cabinetMapping[type],baseCabinet.length,cabinetCostMapping[type],"wc")
      })
-  
   }

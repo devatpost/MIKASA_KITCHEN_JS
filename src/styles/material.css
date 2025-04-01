@@ -1,0 +1,89 @@
+.material-subheading{
+    font-size: 14px;
+    font-weight: normal;
+    color: #000000;
+    cursor: pointer;
+    display: flex;
+    margin-bottom: 0.625rem;
+    margin-top: 10px;
+    text-align: left;
+}
+
+.flex-row{
+    display: flex;
+}
+
+.cabFin{
+    justify-content: space-between;
+    width:150px;
+    margin-bottom: 10px;
+}
+
+.def{
+    color: #000000;
+    font-size: 12px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.light{
+    color: #5F5F5F;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+/* Styling for each texture icon */
+.texture-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    /* No padding for the image itself */
+    border: 0.09375rem solid #A89378;
+    background: #ffffff;
+    cursor: pointer;
+    color: #111111;
+    font-size: 0.75rem;
+    /* Font size for any text inside */
+    border-radius: 0.4375rem;
+    height: 1.25rem;
+    /* Fixed height */
+    width: 2.9375rem;
+    /* Fixed width */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s ease;
+    white-space: nowrap;
+    object-fit: cover;
+    /* Ensure the image covers the area without stretching */
+}
+
+/* Hover effect for the texture icons */
+.texture-icon:hover {
+    background-color: #3c84d6;
+    /* Slight background change on hover */
+    border-color: #3c84d6;
+    /* Border color remains the same */
+    color: #3c84d6;
+}
+
+/* Selected icon effect */
+.texture-icon.selected {
+    background-color: #000000;
+    /* Background color for selected state */
+    border-color: #000000;
+ 
+}
+
+/* Unselected icon effect */
+.texture-icon.unselected {
+    background-color: #ffffff;
+    /* Background color for unselected state */
+    border-color: #7c7c7c;
+    color: #7c7c7c;
+}
+
+.static-icons-container {
+    display: flex;
+    gap: 7px 12px; 
+    flex-wrap: wrap;
+    height: auto;
+}

@@ -58,6 +58,7 @@
         <canvas id="canvas" class="canvas"></canvas>
         </div>
         <div class="rightBox">
+          <img src="assets/deleteIcon.svg" alt="Delete Icon" class="delete-icon" id="deleteCabinet">
           <div class="iconOuter" id="iconOuter">
             <div id="iconContainer" class="icon-container">
           
@@ -67,11 +68,11 @@
           
                 <!-- Extras Menu -->
                 <div id="extrasMenu" class="extras-menu" style="display: none;">
-                    <!-- <div id="previewDimensionsButton" class="menu-item">
-                        <img src="assets//dimensions.svg"  class="menu-icon">
+                    <div id="previewDimensionsButton" class="menu-item">
+                        <img src="assets/dimensions.svg"  class="menu-icon">
                         <span id="menuTextDimensions" class="menu-text selected">Dimensions</span>
                     </div>
-                    <div id="previewWallButton" class="menu-item">
+                    <!-- <div id="previewWallButton" class="menu-item">
                         <img src="assets//scene.svg" alt="Scene" class="menu-icon">
                         <span id="menuTextScene" class="menu-text selected">Scene</span>
                     </div> -->
@@ -83,6 +84,10 @@
                       <div class="blackCircle"></div>
                       <span id="menuTextShutters" class="menu-text selected">Snap Points</span>
                   </div>
+                  <div id="previewSnapBoxes" class="menu-item">
+                    <div class="blackBox"></div>
+                    <span id="menuTextShutters" class="menu-text selected">Snap Boxes</span>
+                </div>
                     <!-- <div id="previewObjectsButton" class="menu-item">
                         <img src="assets//objects.svg" alt="Objects" class="menu-icon">
                         <span id="menuTextObjects" class="menu-text selected">Objects</span>
@@ -96,10 +101,10 @@
                 <!-- <div id="defaultIcon" class="c-button-round default control-btn" data-tooltip="Default">
                     <img src="assets//default.svg" alt="Default Icon" class="svg-icon">
                 </div> -->
-                <!-- <div id="arIcon" class="c-button-round ar control-btn" onclick="window.loadAR()">
-                    <img src="assets//ar_icon.svg" alt="AR Icon" class="svg-icon">
+                <div id="arIcon" class="c-button-round ar control-btn">
+                    AR
                     <span class="hover-text">AR</span>
-                </div> -->
+                </div>
           
                 <!-- <div id="unitIcon" class="c-button-round unit control-btn" data-tooltip="Unit">
                     <img src="assets//unit_mm.svg" alt="Unit Icon" class="svg-icon" id="unitIconImage">
@@ -108,9 +113,7 @@
                 <div id="screenshotIcon" class="c-button-round screenshot control-btn" data-tooltip="Screenshot">
                     <img src="assets//screenshot.svg" alt="Screenshot Icon" class="svg-icon">
                 </div>
-                
-          
-          
+                          
             </div>
           </div>
           <div class="download" id="downloadBox">
@@ -122,7 +125,7 @@
           </div>
           <div class="headingBox">
             <div class="add" id="addButton">Configure</div>
-            <!-- <div class="style" id="addStyle">Style</div> -->
+            <div class="style" id="addStyle">Style</div>
           </div>
           <div class="rightCover" id="add">
             <div class="headings">
@@ -136,56 +139,22 @@
             </div>
             </div>
           </div>
-          <!-- <div class="rightCover" id="style">
+          <div class="rightCover" id="style">
             <div class="headings">
-              <div class="baseCabinets">Door Fronts</div>
-              <div class="imagDrag" id="drag">
-                <button id="bay1Btn" class="bayButton">
-                  <img
-                    draggable="false"
-                    width="84"
-                    height="84"
-                    src="/assets/door.svg"
-                    alt="Add Bay 1"
-                  />
-                </button>
-                
-                <button id="bay2Btn" class="bayButton">
-                  <img
-                    draggable="false"
-                    width="84"
-                    height="84"
-                    src="/assets/open_midshelf.svg"
-                    alt="Add Bay 2"
-                  />
-                </button>
+              <div class="baseCabinets">Material</div>
+              <label class="material-subheading">Cabinet Finish</label>
+              <div class="flex-row cabFin">
+                  <div class="def" id="allCF">All</div>
+                  <div class="light" id="plainCF">Plain</div>
+                  <div class="light" id="textureCF">Textured</div>
+              </div>
+              <div id="materialIcons" class="texture-selection-container">
+                  <!-- Static Icons Container -->
+                  <div id="dynamicIcons" class="static-icons-container">
+                </div>
+              </div>
             </div>
             </div>
-            <div class="headings">
-              <div class="baseCabinets">Knobs & Handles</div>
-              <div class="imagDrag" id="drag">
-                <button id="wall1Btn" class="bayButton">
-                  <img
-                    draggable="false"
-                    width="84"
-                    height="84"
-                    src="/assets/door.svg"
-                    alt="Add Bay 1"
-                  />
-                </button>
-                
-                <button id="wall2Btn" class="bayButton">
-                  <img
-                    draggable="false"
-                    width="84"
-                    height="84"
-                    src="/assets/open_midshelf.svg"
-                    alt="Add Bay 2"
-                  />
-                </button>
-            </div>
-            </div>
-          </div> -->
           <div class="total">
             <div class="cost" id="totalPrice">$200.00</div>
           </div>
@@ -247,6 +216,19 @@
       </div>
       </div>
     </div>
+
+        <!-- AR Modal -->
+        <div id="arModal" class="modal">
+          <div class="modal-content">
+              <span class="close" id="arCross">&times;</span>
+              <h2>Scan the code</h2>
+              <p>Scan the QR code below using your mobile device to see the model in AR. The code is compatible
+                  with
+                  Android and iOS devices.</p>
+              <img id="qrCode" src="" alt="QR Code" style="width:200px;height:200px;">
+          </div>
+      </div>
+      
       <!-- popups -->
   <div class="popup-overlay-input" id="iniPopupOverlay"></div>
   <!-- Bill of Quantites -->
