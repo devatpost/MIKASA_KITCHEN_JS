@@ -11,7 +11,7 @@ export const fetchMaterials=async (session)=> {
    
     const query = `
         MATCH (m:Material)
-        RETURN m.name AS name, m.ct_url AS url, m.roughness_factor as roughness_factor,m.metallic_factor as metallic_factor, m.mrt_url as mrt_url, m.hex_code as hex_code , m.finish_type as type
+        RETURN m.name AS name, m.ct_url AS url, m.roughness_factor as roughness_factor,m.metallic_factor as metallic_factor, m.mrt_url as mrt_url, m.colorHex as hex_code , m.finish_type as type
     `;
    
     const sessionNeo = driver.session();
