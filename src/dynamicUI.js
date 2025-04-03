@@ -23,7 +23,7 @@ export const createUI=(cabinet,container)=>{
 
         // Attach event listener for each button
         button.addEventListener("click", () => {
-            console.log(`Adding ${bayKey}`);
+            // console.log(`Adding ${bayKey}`);
             handleAddShelf(cabinet,cabinet[bayKey], cabinet[bayKey].name);
         });
     });

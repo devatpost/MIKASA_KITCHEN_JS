@@ -28,7 +28,10 @@ export const createDownloadHandler = (session) => {
       img.src = `./assets/${item.name}.svg`;
       img.alt = item.name;
       img.setAttribute("data-name", item.name);
-      img.style.width = "40px";
+      img.style.width = "30px";
+      img.style.height = "30px";
+      img.style.marginBottom="3px"
+
       
       // Create a checkbox element
       const checkbox = document.createElement("input");
@@ -45,9 +48,9 @@ export const createDownloadHandler = (session) => {
             selectedExports.splice(index, 1);
           }
         }
-        console.log("Selected Exports:", selectedExports);
+        // console.log("Selected Exports:", selectedExports);
         const downloadArrow=document.getElementsByClassName("downloadArrow")[0];
-        console.log(downloadArrow)
+        // console.log(downloadArrow)
         if(selectedExports.length>0){
             downloadArrow.style.display="flex";
         }else{
@@ -69,7 +72,7 @@ export const createDownloadHandler = (session) => {
     const downloadIcon = document.createElement('img');
     downloadIcon.src = './assets/downloadExports.svg'; 
     downloadIcon.alt = 'Download Icon'; 
-    downloadIcon.style.height = '30px';
+    downloadIcon.style.height = '25px';
     downloadIcon.style.width = '25px';
     
     downloadButton.innerHTML = ''; 

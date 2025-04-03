@@ -32,7 +32,7 @@ export function setupFormListener(session,selectedExports) {
         userEmailField.value = userData.email ?? "";
     }
     
-    console.log(userNameField, userEmailField, userData);
+    // console.log(userNameField, userEmailField, userData);
     // Check if user data exists in localStorage
     userNameField.addEventListener('input', () => {
         // console.log("User is typing in the username field");
@@ -82,7 +82,7 @@ export function setupFormListener(session,selectedExports) {
         }
         // If validation fails, stop submission
         if (!isValid || !userType) {
-            console.log("Validation failed, form not submitted");
+            // console.log("Validation failed, form not submitted");
             return;
         }
 

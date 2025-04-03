@@ -1,7 +1,7 @@
 import { IViewportApi, FLAG_TYPE, ISessionApi, AnimationData, ITreeNode } from "@shapediver/viewer"; // Replace with the correct import path
+import { QR_CODE_ID, WALL_GEOMETRY } from "../constants";
 // import { nodeAnimationDataPairs } from './animationStorage';
-export const WALL_GEOMETRY = "Wall Geometry";
-export const QR_CODE_ID = 'qrCode'; //for UI
+
 const nodeAnimationDataPairs=[];
 
 export function showARModal() {
@@ -37,7 +37,7 @@ export async function loadAR(viewport, session) {
     /**
      * Temporarily hides the wall geometry in the scene during the AR session.
      */
-    session.getOutputByName("Wall")[0].node.visible = false;
+    session.getOutputByName(WALL_GEOMETRY)[0].node.visible = false;
     try {
         // Traverse the scene tree to find and remove animation data when AR is enable
         // session.node.traverse((node) => {
@@ -79,7 +79,7 @@ export async function loadAR(viewport, session) {
  *
  * @returns {void}
  */
-        session.getOutputByName("Wall")[0].node.visible = true
+        session.getOutputByName(WALL_GEOMETRY)[0].node.visible = true
         viewport.removeFlag(token);
 
         // Re-add animations to the nodes

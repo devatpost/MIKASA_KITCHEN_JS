@@ -4,16 +4,16 @@ import { mat4, quat, vec3, vec2 } from "gl-matrix";
 import { compareBayMatrices, removeMatrixByComparison } from "./utility";
 import { totalCost } from "./BillOfQuantities";
 import { handleSnapBoxesAddition } from "./SnapBoxes";
+import { BaseCabinet, WallCabinet } from "./constants";
 
 export const deleteCabinetHandeler = (e) => {
   const selectEvent = e;
   const selectedNode = selectEvent.node;
-  console.log("Node selected:", selectedNode.parent.name);
   let parentNode = selectedNode.parent.name;
   let parentGroup = null;
-  if (parentNode.includes("bc")) {
+  if (parentNode.includes(BaseCabinet)) {
     parentGroup = bc;
-  } else if (parentNode.includes("wc")) {
+  } else if (parentNode.includes(WallCabinet)) {
     parentGroup = wc;
   }
   // Get the center point
@@ -21,7 +21,6 @@ export const deleteCabinetHandeler = (e) => {
   const snapInfo = Object.values(parentGroup)[0].snapPoints.find(
     (snappoint) => snappoint.point[0] === center
   );
-  console.log(snapInfo, "asdnaisndaodnoaks");
   let index = 0;
   if (snapInfo) {
     index = snapInfo.index;
@@ -69,13 +68,13 @@ export const deleteCabinetHandeler = (e) => {
       rotation: mat4.create(),
       translation: mat4.clone(translationMatrix),
     };
-    console.log(matrixObject, "matrixxiix", allBays);
+    // console.log(matrixObject, "matrixxiix", allBays);
     const existingMatric = allBays.find(
       (bay) =>
         bay.bayName.includes(parentNode) &&
         compareBayMatrices(bay.matrices, matrixObject)
     );
-    console.log(existingMatric);
+    // console.log(existingMatric);
     removeMatrixByComparison(
       parentGroup[existingMatric.bayName],
       existingMatric.matrices

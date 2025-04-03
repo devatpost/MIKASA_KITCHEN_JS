@@ -19,7 +19,6 @@ export const cabinetCostMapping= {
   export const totalCost=(allBays,bc,wc)=>{
     const totalTypesBC=Object.keys(bc);
     const totalTypesWC=Object.keys(wc);
-    console.log(totalTypesBC,totalTypesWC)
     let totalSum=0;
     totalTypesBC.forEach(type=>{
         const baseCabinet= allBays.filter(bc => bc.bayName === type);
@@ -41,7 +40,6 @@ export const populatePopupTable =(allBays,bc,wc)=> {
     popupRows.innerHTML = '';
     const totalTypesBC=Object.keys(bc);
     const totalTypesWC=Object.keys(wc);
-    console.log(totalTypesBC,totalTypesWC)
 
 
     function createPopupRow(name, quantity, pricePerUnit,type) {
@@ -59,14 +57,12 @@ export const populatePopupTable =(allBays,bc,wc)=> {
 
     totalTypesBC.forEach(type=>{
        const baseCabinet= allBays.filter(bc => bc.bayName === type);
-       console.log(baseCabinet)
        if(baseCabinet)
        createPopupRow(cabinetMapping[type],baseCabinet.length,cabinetCostMapping[type],"bc")
     })
 
     totalTypesWC.forEach(type=>{
         const baseCabinet= allBays.filter(wc => wc.bayName === type);
-        console.log(baseCabinet)
 
         if(baseCabinet)
         createPopupRow(cabinetMapping[type],baseCabinet.length,cabinetCostMapping[type],"wc")

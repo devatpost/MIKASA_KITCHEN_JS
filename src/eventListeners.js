@@ -1,14 +1,18 @@
 import { SelectManager } from "@shapediver/viewer.features.interaction";
-import { loadAR } from "./arIntegration";
+import { loadAR } from "./Utility Icons/arIntegration";
 import { populatePopupTable } from "./BillOfQuantities";
 import { deleteCabinetHandeler } from "./deleteCabinets";
 import { handleScreenshot } from "./Download/screenshot";
 import handleInputsForDownloads from "./inputDownloads";
-import { allBays, bc, selectManager, wc } from "./main";
+import { allBays, bc, selectManager, session, viewport, wc } from "./main";
 import { createTooltip } from "./tooltip";
 import * as SDV from "@shapediver/viewer";
-import { toggleDimensions } from "./toggleDimensions";
-import { toggleSnapBoxes } from "./toggleSnapBoxes";
+import { toggleSnapBoxes } from "./Utility Icons/toggleSnapBoxes";
+import { toggleDimensions } from "./Utility Icons/toggleDimensions";
+import { handleUnitToggle } from "./Utility Icons/toggleUnit";
+import { handleDefaultScene } from "./Utility Icons/handleDefaultscene";
+import { toggleScene } from "./Utility Icons/toggleScene";
+
 
 export let selectedNode;
 
@@ -82,10 +86,21 @@ export const eventListenersSetup=()=>{
     }
   }
 
+  function outsideClickHandle(event) {
+    // Close menu if clicked outside
+    if (!downloadIconContainer.contains(event.target) && event.target !== downloadIconContainer) {
+      downloadIconContainer.style.display = "none";
+      document.removeEventListener("click", outsideClickHandle);
+    }
+  }
+
   const downloadBox=document.getElementById("downloadBox");
   const downloadIconContainer=document.getElementById("downloads");
   downloadBox.addEventListener("click",()=>{
        downloadIconContainer.style.display="flex";
+       setTimeout(() => {
+        document.addEventListener("click", outsideClickHandle);
+      }, 0);
   })
   const downloadPopupCross=document.getElementById("downloadPopupCross");
   downloadPopupCross.addEventListener("click",()=>{
@@ -110,22 +125,22 @@ export const eventListenersSetup=()=>{
     popupBill.style.display = 'none'; // Hide the popup
   });
 
-  let snapPointToggle=false;
-  const snapPointButton=document.getElementById("previewSnapPoints");
-  snapPointButton.addEventListener("click",()=>{
-    const circles = document.getElementsByClassName("anchor-point");
+  // let snapPointToggle=false;
+  // const snapPointButton=document.getElementById("previewSnapPoints");
+  // snapPointButton.addEventListener("click",()=>{
+  //   const circles = document.getElementsByClassName("anchor-point");
 
-    if (snapPointToggle) {
-        Array.from(circles).forEach(circle => {
-            circle.style.display = "flex";
-        });
-    } else {
-        Array.from(circles).forEach(circle => {
-            circle.style.display = "none";
-        });
-    }
-    snapPointToggle=!snapPointToggle
-  })
+  //   if (snapPointToggle) {
+  //       Array.from(circles).forEach(circle => {
+  //           circle.style.display = "flex";
+  //       });
+  //   } else {
+  //       Array.from(circles).forEach(circle => {
+  //           circle.style.display = "none";
+  //       });
+  //   }
+  //   snapPointToggle=!snapPointToggle
+  // })
 
   const screenshotIcon = document.getElementById('screenshotIcon');
   screenshotIcon.addEventListener("click",handleScreenshot);
@@ -137,7 +152,7 @@ createTooltip(element);
 const ar = document.getElementById("arIcon");
 
 ar.addEventListener("click", () => {
-  console.log("insdjnfjkdsk")
+  // console.log("insdjnfjkdsk")
     loadAR(viewport, session);
 });
 
@@ -181,4 +196,16 @@ const dimensions=document.getElementById("previewDimensionsButton");
 dimensions.addEventListener("click",toggleDimensions)
 const previewSnapBoxes=document.getElementById("previewSnapBoxes");
 previewSnapBoxes.addEventListener("click",toggleSnapBoxes)
+
+const unitToggle=document.getElementById("unitIcon");
+unitToggle.addEventListener("click",handleUnitToggle);
+
+
+const defaultScene=document.getElementById("defaultIcon");
+defaultScene.addEventListener("click",handleDefaultScene);
+
+
+const Scene=document.getElementById("previewWallButton");
+Scene.addEventListener("click",toggleScene);
+
 }
