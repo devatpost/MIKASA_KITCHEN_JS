@@ -1,6 +1,7 @@
 import { Dimensions_GEO, Dimensions_Text } from "../constants";
 import { bc, session, updateParameter, wc } from "../main";
 
+//Toggle dimension features
 let dimOn=true;
 export const toggleDimensions=async()=>{
     const output=session.getOutputByName(Dimensions_GEO)[0];

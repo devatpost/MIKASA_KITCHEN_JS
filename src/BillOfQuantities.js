@@ -16,6 +16,7 @@ export const cabinetCostMapping= {
     wc3:65,
   }
 
+  //handle the bill of quantities
   export const totalCost=(allBays,bc,wc)=>{
     const totalTypesBC=Object.keys(bc);
     const totalTypesWC=Object.keys(wc);

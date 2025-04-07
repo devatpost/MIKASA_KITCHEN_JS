@@ -3,6 +3,7 @@ import { bc, session, updateParameter, wc } from "../main";
 
 let snapBoxesOn=true;
 
+//toggle snap box feature
 export const toggleSnapBoxes=async()=>{
     
         const output=session.getOutputByName(WallSnapBoxes)[0];

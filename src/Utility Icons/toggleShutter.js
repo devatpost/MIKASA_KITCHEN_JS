@@ -1,6 +1,7 @@
 import { PreviewShutters } from "../constants";
 import { bc, updateParameter, wc } from "../main";
 
+//Toggle shutter featur
 export const toggleShutter=(session)=>{
     const shutter=Object.values(session.parameters).filter(
         (field) => field.name === PreviewShutters

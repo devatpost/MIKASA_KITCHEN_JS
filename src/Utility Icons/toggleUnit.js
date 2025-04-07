@@ -1,6 +1,7 @@
 import { Units } from "../constants";
 import { bc, session, updateParameter, wc } from "../main";
 
+//Toggle units feature
 function chngimg() {
     const imgElement = document.getElementById('unitIconImage') ;
     

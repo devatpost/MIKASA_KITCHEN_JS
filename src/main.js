@@ -122,7 +122,7 @@ export const updateParameter = async (cabinet) => {
 //     console.log(param.name);
 // });
 
-
+//Getting outputs for Base Cabinets
     Object.values(outputs).forEach(output => {
       if (output.name.startsWith(BaseCabinet)) {
           const bayKey = output.name; // Convert to bay1, bay2
@@ -150,6 +150,7 @@ export const updateParameter = async (cabinet) => {
       }
   });
 
+  //Getting outputs for Wall Cabinets
   Object.values(outputs).forEach(output => {
     if (output.name.startsWith(WallCabinet)) {
         const bayKey = output.name; // Convert to bay1, bay2
@@ -176,8 +177,8 @@ export const updateParameter = async (cabinet) => {
     }
 });
     
-    // Assign the corresponding parameters
-    Object.values(parameters).forEach(param => {
+//Getting parameters for Base Cabinets
+Object.values(parameters).forEach(param => {
         if (param.name.startsWith(BaseCabinet)) {
             const newName = param.name.replace("Matrices", "");
             // const bayKey = `bay${bayNumber.toLowerCase()}`;
@@ -189,6 +190,7 @@ export const updateParameter = async (cabinet) => {
         }
     });
     
+    //Getting parameters for Wall Cabinets
     Object.values(parameters).forEach(param => {
       if (param.name.startsWith(WallCabinet)) {
           const newName = param.name.replace("Matrices", "");
@@ -207,7 +209,7 @@ export const updateParameter = async (cabinet) => {
     Object.entries(wc).sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
   );
   
-  
+    //Updating parameters to hide the initial box
     await updateParameter(bc);
     await updateParameter(wc);
 
@@ -225,7 +227,7 @@ export const updateParameter = async (cabinet) => {
     selectManager.effectMaterial = new SDV.MaterialStandardData({ color: "#8080FF", opacity:0.3 });
     interactionEngine.addInteractionManager(selectManager);
 
-
+    //Variuos handelers for features
     addAndStyle();
     createUI(bc,"baseCabinetContainer")
     createUI(wc,"wallCabinetContainer")

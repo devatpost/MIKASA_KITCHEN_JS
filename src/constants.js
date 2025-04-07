@@ -1,3 +1,4 @@
+//Constants
 export const BaseCabinet="bc";
 export const WallCabinet="wc";
 export const WallSnapBoxes="Wall Snapbox";

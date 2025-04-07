@@ -1,6 +1,7 @@
 import { PreviewScene } from "../constants";
 import { bc, session, updateParameter, wc } from "../main";
 
+//Toggle scene feature
 export const toggleScene=async()=>{
         const scene=Object.values(session.parameters).filter(
             (field) => field.name === PreviewScene
