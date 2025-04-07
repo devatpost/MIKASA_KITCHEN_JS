@@ -4,7 +4,7 @@ import { populatePopupTable } from "./BillOfQuantities";
 import { deleteCabinetHandeler } from "./deleteCabinets";
 import { handleScreenshot } from "./Download/screenshot";
 import handleInputsForDownloads from "./inputDownloads";
-import { allBays, bc, selectManager, wc } from "./main";
+import { allBays, bc, selectManager, session, viewport, wc } from "./main";
 import { createTooltip } from "./tooltip";
 import * as SDV from "@shapediver/viewer";
 import { toggleDimensions } from "./toggleDimensions";
@@ -101,7 +101,7 @@ export const eventListenersSetup=()=>{
   const popupBill = document.getElementById('popup');
   const priceButton=document.getElementById("totalPrice");
   priceButton.addEventListener("click",()=>{
-    populatePopupTable(allBays,bc,wc); // Populate table with current data
+    populatePopupTable(Object.values(session.parameters).find((obj)=>obj.name === "Sofa Type").value); // Populate table with current data
     popupBill.style.display = 'flex'; // Show the popup
   })
 
@@ -137,7 +137,6 @@ createTooltip(element);
 const ar = document.getElementById("arIcon");
 
 ar.addEventListener("click", () => {
-  console.log("insdjnfjkdsk")
     loadAR(viewport, session);
 });
 

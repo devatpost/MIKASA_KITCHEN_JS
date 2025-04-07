@@ -15,7 +15,7 @@ export async function requestExport(session, exportNames,userName,userEmail) {
                     await session.customize();
                 }
             } else if(exportName === "Download Excel"){
-                Excel(userName,userEmail)
+                Excel(userName,userEmail,Object.values(session.parameters).find((obj)=>obj.name === "Sofa Type").value)
             }
             else {
                 // const Process_PDF = Object.values(session.parameters).find(param => param.name === 'Process_PDF');

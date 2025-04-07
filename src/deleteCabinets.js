@@ -85,7 +85,7 @@ export const deleteCabinetHandeler = (e) => {
     );
     if (allBayIndex != -1) allBays.splice(allBayIndex, 1);
     await updateParameter(parentGroup);
-    totalCost(allBays, bc, wc);
+    // totalCost(allBays, bc, wc);
     handleSnapBoxesAddition(index, existingMatric);
   };
 

@@ -1,47 +1,25 @@
 export const cabinetMapping= {
-  bc1:"Base Cabinet Type 1",
-  bc2:"Base Cabinet Type 2",
-  bc3:"Base Cabinet Type 3",
-  wc1:"Wall Cabinet Type 1",
-  wc2:"Wall Cabinet Type 2",
-  wc3:"Wall Cabinet Type 3",
+  0:"One Seater Sofa",
+  1:"Two Seater Sofa",
+  2:"Three Seater Sofa",
 }
 
 export const cabinetCostMapping= {
-    bc1:25,
-    bc2:50,
-    bc3:75,
-    wc1:15,
-    wc2:40,
-    wc3:65,
+    0:200,
+    1:400,
+    2:600,
   }
 
-  export const totalCost=(allBays,bc,wc)=>{
-    const totalTypesBC=Object.keys(bc);
-    const totalTypesWC=Object.keys(wc);
-    console.log(totalTypesBC,totalTypesWC)
-    let totalSum=0;
-    totalTypesBC.forEach(type=>{
-        const baseCabinet= allBays.filter(bc => bc.bayName === type);
-        totalSum=totalSum+(baseCabinet.length*cabinetCostMapping[type])
-     })
- 
-     totalTypesWC.forEach(type=>{
-         const baseCabinet= allBays.filter(wc => wc.bayName === type);
-         totalSum=totalSum+(baseCabinet.length*cabinetCostMapping[type]) 
-      })
-
+  export const totalCost=(type)=>{
+      
       const priceButton=document.getElementById("totalPrice");
-      priceButton.innerText=`$${totalSum}`;
+       priceButton.innerText=`$${cabinetCostMapping[type]}`;
   }
 
-export const populatePopupTable =(allBays,bc,wc)=> {
+export const populatePopupTable =(type)=> {
     // Clear existing rows
     const popupRows = document.getElementById('popupRows');
     popupRows.innerHTML = '';
-    const totalTypesBC=Object.keys(bc);
-    const totalTypesWC=Object.keys(wc);
-    console.log(totalTypesBC,totalTypesWC)
 
 
     function createPopupRow(name, quantity, pricePerUnit,type) {
@@ -57,18 +35,5 @@ export const populatePopupTable =(allBays,bc,wc)=> {
       popupRows.appendChild(row);
     }
 
-    totalTypesBC.forEach(type=>{
-       const baseCabinet= allBays.filter(bc => bc.bayName === type);
-       console.log(baseCabinet)
-       if(baseCabinet)
-       createPopupRow(cabinetMapping[type],baseCabinet.length,cabinetCostMapping[type],"bc")
-    })
-
-    totalTypesWC.forEach(type=>{
-        const baseCabinet= allBays.filter(wc => wc.bayName === type);
-        console.log(baseCabinet)
-
-        if(baseCabinet)
-        createPopupRow(cabinetMapping[type],baseCabinet.length,cabinetCostMapping[type],"wc")
-     })
+     createPopupRow(cabinetMapping[type],1,cabinetCostMapping[type],type)
   }

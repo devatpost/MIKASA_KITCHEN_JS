@@ -29,6 +29,7 @@ import { loadAR } from "./arIntegration";
 import { handleSnapBoxesAddition } from "./SnapBoxes";
 import { deleteCabinetHandeler } from "./deleteCabinets";
 import { eventListenersSetup } from "./eventListeners";
+import { createParameterMenu } from "./Parameters/parameters";
 
 export let viewport;
 export let session;
@@ -108,7 +109,7 @@ export const updateParameter = async (cabinet) => {
     });
     session = await createSession({
       ticket:
-      "048a6862731ccc50827a91151c3132ce031203342f903c215f7c7957484319ad09d236ac5854f8e16c2a36d02872ca0be3cbaae83ab3762da7ef095bbb607d3e0ab60a98861d9d8b8cb53a8086549e2383922abf653325dd44784a7907d00c9dfa24fbbc88d56e-344d8468f40e33557fee39b8c049ceba",
+      "de233b9d771ee3153f4b03c326b9ca9a490827b00e1b96b0fcf8f079fefd3f985366376f0593d4655a8e5d1912f6bf925bb4d1c421f0555d1c8a5102177fa0c33a7a32583d32b76df24047f5ab3b532cbb765f32637cbc42090be832ac0a305b5fdec4f5c37c81-2b2e7b67aa6d5d062bf3fd5b33f4dbe6",
       modelViewUrl: "https://sdr7euc1.eu-central-1.shapediver.com",
       id: "mySession"
     });
@@ -242,13 +243,14 @@ export const updateParameter = async (cabinet) => {
 
 
     addAndStyle();
-    createUI(bc,"baseCabinetContainer")
-    createUI(wc,"wallCabinetContainer")
+    createParameterMenu(session)
+    // createUI(bc,"baseCabinetContainer")
+    // createUI(wc,"wallCabinetContainer")
     materialUI()
     fetchMaterials(session);
     createDownloadHandler(session)
     toggleShutter(session)
-    totalCost(allBays,bc,wc)
+    totalCost(Object.values(session.parameters).find((obj)=>obj.name === "Sofa Type").value)
     eventListenersSetup()  
   } catch (error) {
     console.error("Error initializing ShapeDiver:", error);

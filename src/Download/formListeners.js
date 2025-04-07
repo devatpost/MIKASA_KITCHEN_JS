@@ -87,31 +87,31 @@ export function setupFormListener(session,selectedExports) {
         }
 
         // Call the update function with the form data
-        await updateFormParameters(session, {
-            name: userName,
-            email: userEmail,
-            // userType: mappedUserType.toString()
-        });
+        // await updateFormParameters(session, {
+        //     name: userName,
+        //     email: userEmail,
+        //     // userType: mappedUserType.toString()
+        // });
 
         // After form submission, trigger the export when selected
         if (selectedExports.length>0) {
             for (const exportObject of selectedExports) {
                 await requestExport(session, [exportObject],userName,userEmail); // Pass the name of each selected export
             }     
-            if(selectedExports.includes("Email 2D CAD Drawing")){
-                //Dont send mail as it is already contained in CAD Mail
-            }else{
-                // const Process_PDF = Object.values(session.parameters).find(param => param.name === 'Process_PDF') as IParameterApi<boolean>;
-                const sendMail = session.getExportByName("Email PDF");
-                if(sendMail){
-                    // Process_PDF.value=true;
-                    // await session.customize();
-                    const mail=sendMail[0];
-                    const sendingMail= await mail.request();
-                    // Process_PDF.value=false;
-                    // await session.customize();
-                }
-            }
+            // if(selectedExports.includes("Email 2D CAD Drawing")){
+            //     //Dont send mail as it is already contained in CAD Mail
+            // }else{
+            //     // const Process_PDF = Object.values(session.parameters).find(param => param.name === 'Process_PDF') as IParameterApi<boolean>;
+            //     const sendMail = session.getExportByName("Email PDF");
+            //     if(sendMail){
+            //         // Process_PDF.value=true;
+            //         // await session.customize();
+            //         const mail=sendMail[0];
+            //         const sendingMail= await mail.request();
+            //         // Process_PDF.value=false;
+            //         // await session.customize();
+            //     }
+            // }
         }
         setSelectedExports(selectedExports); // Clear the selected export after use
         resetCheckboxes();

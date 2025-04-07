@@ -1,5 +1,7 @@
 import neo4j from 'neo4j-driver';
-import { bc, updateParameter, wc } from '../main';
+import { bc, session, updateParameter, viewport, wc } from '../main';
+import { GeometryData, MaterialEngine, MaterialStandardData } from '@shapediver/viewer';
+const materialEngine = MaterialEngine.instance;
 
 export const fetchMaterials=async (session)=> {
     const NEO4J_URI = import.meta.env.VITE_NEO4J_URI??"";
@@ -10,8 +12,19 @@ export const fetchMaterials=async (session)=> {
     const materials= [];
    
     const query = `
-        MATCH (m:Material)
-        RETURN m.name AS name, m.material_url AS url, m.roughness_factor as roughness_factor,m.metallic_factor as metallic_factor, m.mrt_url as mrt_url, m.hex_code as hex_code , m.material_type as type
+        MATCH (m:Material) 
+        WHERE m.surface_type = "Fabric" 
+        RETURN m.name AS name, 
+            m.ct_url AS url, 
+            m.roughness_factor AS roughness_factor, 
+            m.metallic_factor AS metallic_factor, 
+            m.mrt_url AS mrt_url, 
+            m.nt_url AS nt_url, 
+            m.hexColor AS hex_code, 
+            m.finish_type AS type,
+            m.dt_url AS dt_url,
+            m.aot_url AS aot_url,
+            m.displacement_factor AS disp_factor
     `;
    
     const sessionNeo = driver.session();
@@ -27,12 +40,17 @@ export const fetchMaterials=async (session)=> {
                 metallic_factor: record.get("metallic_factor"),
                 roughness_factor: record.get("roughness_factor"),
                 mrt_url: record.get("mrt_url"),
+                nt_url:record.get("nt_url"),
                 hex_code: record.get("hex_code"),
-                type:record.get("type")
+                type:record.get("type"),
+                dt_url:record.get("dt_url"),
+                aot_url:record.get("aot_url"),
+                disp_factor:record.get("disp_factor")
             };
             materials.push(material);
         });
-   
+        
+        console.log(materials,"ammam")
         const dynamicIconsContainer = document.getElementById("dynamicIcons");
         // const dynamicIconsContainerCounterTop = document.getElementById("dynamicIconsCounterTop");
 
@@ -81,81 +99,61 @@ export const fetchMaterials=async (session)=> {
     }
   }
 
+  const replaceMaterial = async(
+    node,
+    materialName,
+    material
+  ) => {
+    for (let i = 0; i < node?.data?.length; i++) {
+      // or can be assigned to a geometry
+      if (node.data[i] instanceof GeometryData) {
+        const geometry = node.data[i];
+        console.log(geometry,materialName)
+        if (geometry.material && geometry.material.name === materialName)
+            geometry.material = material;
+        geometry.standaradMaterial = material;
+
+      }
+    }
+  
+    for (let i = 0; i < node.children.length; i++)
+      replaceMaterial(node.children[i], materialName, material);
+  };
+
 
   export function setupClickListeners(materials, session) {
     
+      const primaryOutput=session.getOutputByName("glTFDisplay")[0]
+      const requireNode=primaryOutput.node.getNodesByName("Top")[0];
+      const material = new MaterialStandardData();
+    console.log(materials,material)
     const textureIcons = document.querySelectorAll('.texture-icon');
-    textureIcons.forEach((element) => {
+    textureIcons.forEach((element,index) => {
         element.addEventListener('click', async () => {
-            const dataIndex = element.getAttribute('data-index');
-            if (dataIndex !== null) {
-                const index = parseInt(dataIndex, 10);
-                const material = materials[index];
-                const outerColorName = material['name'];
-                const outerColor = material['hex_code'];
-                const colorTextureUrl = material['url'];
-                const metallicFactor = material['metallic_factor'];
-                const outerRoughness = material['roughness_factor'];
-                const metallicRoughnessUrl = material['mrt_url']; // Ensure this matches Excel column
-                // const outerNormalUrl = material['NT URL']; // Ensure this matches Excel column
-
-
-                // // Log the extracted values
-                // console.log(`Extracted values for icon ${index}:`);
-                // console.log(`Material Name: ${outerColorName}`);
-                // console.log(`Color Hex: ${outerColor}`);
-                // console.log(`Color Texture URL: ${colorTextureUrl}`);
-                // console.log(`Metallic Roughness URL: ${metallicRoughnessUrl}`);
-                // console.log(`Metallic Factor: ${metallicFactor}`);
-                // console.log(`Roughness Factor: ${outerRoughness}`);
-                // console.log(`Normal Texture URL: ${outerNormalUrl}`);
-
-
-                // Update all the related parameters
-                await updateOuterParameters(session,
-                    colorTextureUrl,
-                    outerColorName,
-                    outerColor,
-                    outerRoughness,
-                    metallicFactor,
-                    metallicRoughnessUrl);
-            }
-        });
+            console.log(materials[index].url)
+            material.aoMap = (await materialEngine.loadMap(
+                materials[index].aot_url
+              )) || undefined; 
+            material.map =(await materialEngine.loadMap(
+                materials[index].url
+              )) || undefined;
+              material.displacementMap =(await materialEngine.loadMap(
+                materials[index].dt_url
+              )) || undefined;  
+              material.metalnessRoughnessMap =(await materialEngine.loadMap(
+                materials[index].mrt_url
+              )) || undefined;  
+              material.normalMap =(await materialEngine.loadMap(
+                materials[index].nt_url
+              )) || undefined;    
+              material.roughness=materials[index].roughness_factor
+              material.metalness=materials[index].metallic_factor;
+              material.displacementScale=materials[index].disp_factor
+            material.name="sofa_fabric"         
+        console.log(material)
+        replaceMaterial(requireNode, "sofa_fabric", material);
+        primaryOutput.node.updateVersion();
+        viewport.update();
     });
-}
+})}
 
-
-export async function updateOuterParameters(session,
-    textureUrl,
-    colorName,
-    color,
-    roughness,
-    metallicFactor,
-    metallicRoughnessUrl
-) {
-    // Helper function to update a specific parameter
-    const updateMaterialParameter = async (paramName, value) => {
-        // universalTextureUrl=textureUrl;
-        console.log(paramName,value,"maateiralla")
-        if (value !== undefined && value !== null) {
-            const param = Object.values(session.parameters).find(p => p.name === paramName);
-            if (param) 
-            param.value = value;
-            await session.customize();
-            } else {
-                console.error(`${paramName} parameter not found in session.`);
-            }
-    };
-
-    updateMaterialParameter('Shutter CT URL', textureUrl);
-    // updateMaterialParameter('Outer Color Name', colorName);
-    updateMaterialParameter('Shutter Color', color);
-    updateMaterialParameter('Shutter RF', roughness);
-    if (Number.isInteger(metallicFactor)) {
-    updateMaterialParameter('Shutter MF', metallicFactor);
-    }
-    updateMaterialParameter('Shutter MRT URL', metallicRoughnessUrl);
-
-   await updateParameter(wc)
-   await updateParameter(bc)
-}

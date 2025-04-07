@@ -184,7 +184,7 @@ export const storeBay = (cabinet,matrices, bayName,index) => {
             console.log("Updated matrices and parameters for bay:", def);
             updateParameter(cabinet);
             handleSnapBoxesRemoval(index,def);
-            totalCost(allBays,bc,wc);
+            // totalCost(allBays,bc,wc);
         } else {
             console.log("Snap index not found or storeBay failed");
             newNode.visible = false;

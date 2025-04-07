@@ -2,31 +2,16 @@ import * as XLSX from 'xlsx';
 import { allBays, bc, wc } from '../main';
 import { cabinetCostMapping, cabinetMapping } from '../BillOfQuantities';
 
-export const Excel = (userName,userEmail) => {
+export const Excel = (userName,userEmail,type) => {
     const excelData=[];
     const workbook = XLSX.utils.book_new();
-    const totalTypesBC=Object.keys(bc);
-    const totalTypesWC=Object.keys(wc);
-    // Define the additional columns template
-    totalTypesBC.forEach(type=>{
-        const baseCabinet= allBays.filter(bc => bc.bayName === type);
-        excelData.push({
-            name:cabinetMapping[type],
-            quantity:baseCabinet.length,
-            costperunit:cabinetCostMapping[type],
-            total:baseCabinet.length * cabinetCostMapping[type]
-        })
-    })
 
-    totalTypesWC.forEach(type=>{
-        const baseCabinet= allBays.filter(bc => bc.bayName === type);
         excelData.push({
             name:cabinetMapping[type],
-            quantity:baseCabinet.length,
+            quantity:1,
             costperunit:cabinetCostMapping[type],
-            total:baseCabinet.length * cabinetCostMapping[type]
+            total:cabinetCostMapping[type]
         })
-    })
 
     const additionalColumns = {
         'Costing': '',
@@ -144,7 +129,7 @@ export const Excel = (userName,userEmail) => {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement('a');
     anchor.href = url;
-    anchor.download = `${userName}_Mikasa_Kitchen.xlsx`; // Filename of the Excel file
+    anchor.download = `${userName}_Mikasa_Sofa.xlsx`; // Filename of the Excel file
     anchor.click();
 
     // Clean up the URL object after download

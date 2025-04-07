@@ -37,7 +37,6 @@ export async function loadAR(viewport, session) {
     /**
      * Temporarily hides the wall geometry in the scene during the AR session.
      */
-    session.getOutputByName("Wall")[0].node.visible = false;
     try {
         // Traverse the scene tree to find and remove animation data when AR is enable
         // session.node.traverse((node) => {
@@ -79,13 +78,12 @@ export async function loadAR(viewport, session) {
  *
  * @returns {void}
  */
-        session.getOutputByName("Wall")[0].node.visible = true
         viewport.removeFlag(token);
 
         // Re-add animations to the nodes
-        nodeAnimationDataPairs.forEach(pair => {
-            pair.data.forEach(d => pair.node.addData(d));
-        });
+        // nodeAnimationDataPairs.forEach(pair => {
+        //     pair.data.forEach(d => pair.node.addData(d));
+        // });
         /**
          * Clears the global array `nodeAnimationDataPairs` after the animations have been re-applied to the nodes.
          * This ensures that the array is empty for future AR sessions.
@@ -93,6 +91,6 @@ export async function loadAR(viewport, session) {
          * @returns {void}
          */
         // Clear stored animation data
-        nodeAnimationDataPairs.length = 0;
+        // nodeAnimationDataPairs.length = 0;
     }
 }
