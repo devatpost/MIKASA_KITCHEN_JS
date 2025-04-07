@@ -166,6 +166,7 @@ cursor: pointer;
 .cost{
   padding: 25px;
   color: #000000;
+  display: none;
 }
 
 #style{

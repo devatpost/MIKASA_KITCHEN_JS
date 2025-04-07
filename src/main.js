@@ -109,8 +109,8 @@ export const updateParameter = async (cabinet) => {
     });
     session = await createSession({
       ticket:
-      "de233b9d771ee3153f4b03c326b9ca9a490827b00e1b96b0fcf8f079fefd3f985366376f0593d4655a8e5d1912f6bf925bb4d1c421f0555d1c8a5102177fa0c33a7a32583d32b76df24047f5ab3b532cbb765f32637cbc42090be832ac0a305b5fdec4f5c37c81-2b2e7b67aa6d5d062bf3fd5b33f4dbe6",
-      modelViewUrl: "https://sdr7euc1.eu-central-1.shapediver.com",
+      "9e2b1bc53d009d02184afa140bece4e46d61c0e8829fe3746c2c55316e1cf69c8fb05ca79680d5a6eb3fb4bbd55fddd273e19a250c86c3e4cb2e1d725a5387fd63d17d37582414b854a962e5d3a36763cba32ea3319a560ecff25c2fdc592f2b518c1217e249f4-4c7565677d943af5958c1ba55431e3fb",
+      modelViewUrl: "https://sdr8euc1.eu-central-1.shapediver.com",
       id: "mySession"
     });
 
