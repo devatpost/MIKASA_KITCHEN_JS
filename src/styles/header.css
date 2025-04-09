@@ -18,8 +18,8 @@
   /* Header icon container */
   .header-icon-container {
     background-color: #000;
-    width: 400px;
-    max-width: 400px;
+    width: 450px;
+    max-width: 450px;
     flex: 1 1 auto;
     /* to take up space and shrink if necessary */
     position: relative;
