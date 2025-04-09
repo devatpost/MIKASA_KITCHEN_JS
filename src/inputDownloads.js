@@ -19,7 +19,7 @@ export const handleInputsForDownloads = (userType)=> {
     
 
     if (!popup || !overlay || !continueBtn || !nameInput || !emailInput || !nameError || !emailError) {
-        console.error("Required elements are missing.");
+
         return; // Exit early if elements are not found
     }
 
@@ -72,7 +72,7 @@ export const handleInputsForDownloads = (userType)=> {
         //         { name: userData.name, email: userData.email, userType: userData.userType }
         //     )
         //     .then(() => {
-        //         // console.log('User data added to Neo4j:', userData);
+        //   
         //     })
         //     .catch((error) => {
         //         console.error('Error adding user to Neo4j:', error);
@@ -86,7 +86,7 @@ export const handleInputsForDownloads = (userType)=> {
         popup.style.display = 'none';
         overlay.style.display = 'none';
 
-        // console.log('Stored user data:', userData);
+     
     }
 }
 

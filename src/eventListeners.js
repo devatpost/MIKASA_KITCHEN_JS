@@ -146,7 +146,7 @@ const arCross=document.getElementById("arCross")
   if (arModal) {
     arModal.style.display = "none";
   } else {
-    console.error("AR modal element not found");
+
   } 
 })
 

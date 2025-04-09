@@ -32,7 +32,7 @@ export function setupFormListener(session,selectedExports) {
         userEmailField.value = userData.email ?? "";
     }
     
-    console.log(userNameField, userEmailField, userData);
+
     // Check if user data exists in localStorage
     userNameField.addEventListener('input', () => {
         // console.log("User is typing in the username field");

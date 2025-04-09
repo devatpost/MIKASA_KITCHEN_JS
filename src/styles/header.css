@@ -1,7 +1,7 @@
 
 .black-header {/* change for ipads*/
     background-color: black;
-    height: 71px;
+    height: 70px;
     /* Scale the height relative to the parent container */
     width: 100%;
     display: flex;

@@ -95,7 +95,6 @@ export const updateParameter = async (cabinet) => {
 };
 
 (async () => {
-  console.log(SDV,"sdfsdjnjdnskvjndks")
 
   try {
     const canvas = document.getElementById("canvas");
@@ -109,7 +108,7 @@ export const updateParameter = async (cabinet) => {
     });
     session = await createSession({
       ticket:
-      "9e2b1bc53d009d02184afa140bece4e46d61c0e8829fe3746c2c55316e1cf69c8fb05ca79680d5a6eb3fb4bbd55fddd273e19a250c86c3e4cb2e1d725a5387fd63d17d37582414b854a962e5d3a36763cba32ea3319a560ecff25c2fdc592f2b518c1217e249f4-4c7565677d943af5958c1ba55431e3fb",
+      "aa3c285225d7673e1b76cafbb798be5436149f5c186b2e9e87d03f51799be558f14fdc16218ef6fc9ec45304ba96b3ffa443eb229d333c1190f0cebebb9f1b033bc2dc5c43c5ae36896e9391584fbfc4f4b2872f4ea0fdeb2919511ba38d6be739af16598a8316-93c750b95d72954a73d54f3a121c89da",
       modelViewUrl: "https://sdr8euc1.eu-central-1.shapediver.com",
       id: "mySession"
     });
@@ -117,7 +116,6 @@ export const updateParameter = async (cabinet) => {
     // Log session and viewport
     console.log("Viewport and session initialized:", { viewport, session });
     viewport.camera.reset();
-
     viewport.show = true;
 
     const outputs = session.outputs; // Get all outputs

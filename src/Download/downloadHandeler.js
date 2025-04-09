@@ -28,7 +28,7 @@ export const createDownloadHandler = (session) => {
       img.src = `./assets/${item.name}.svg`;
       img.alt = item.name;
       img.setAttribute("data-name", item.name);
-      img.style.width = "40px";
+      img.style.width = "30px";
       
       // Create a checkbox element
       const checkbox = document.createElement("input");
@@ -69,8 +69,8 @@ export const createDownloadHandler = (session) => {
     const downloadIcon = document.createElement('img');
     downloadIcon.src = './assets/downloadExports.svg'; 
     downloadIcon.alt = 'Download Icon'; 
-    downloadIcon.style.height = '30px';
-    downloadIcon.style.width = '25px';
+    downloadIcon.style.height = '20px';
+    downloadIcon.style.width = '20px';
     
     downloadButton.innerHTML = ''; 
     downloadButton.appendChild(downloadIcon); 

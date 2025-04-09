@@ -7,7 +7,7 @@ export const updateFeaturesParameters=async(session,parameterObject,index)=>{
 
 
 export const createStringListParameterElement = (session, parameterObject,ConfigureTab) => {
-    console.log("inin Parameter");
+
     const paramName=parameterObject.name.replace(" ","")
     //Outer Box
     const headingBox=document.createElement("div");
