@@ -12,7 +12,7 @@ export function compareMat4(matrix1, matrix2) {
   
   
   export function compareBayMatrices(matrices1, matrices2) {
-    console.log(matrices1,matrices2)
+    // console.log(matrices1,matrices2)
     return (
       compareMat4(matrices1.transformation, matrices2.transformation) &&
       compareMat4(matrices1.rotation, matrices2.rotation) &&
@@ -21,7 +21,7 @@ export function compareMat4(matrix1, matrix2) {
   }
 
   export const removeMatrixByComparison = async (parent, matrixToRemove) => {
-    console.log(parent,"aprenttntn")
+    // console.log(parent,"aprenttntn")
     const matrixIndex = parent.matrices.findIndex(existingMatrix =>
       compareBayMatrices(existingMatrix, matrixToRemove)
     );
@@ -37,6 +37,6 @@ export function compareMat4(matrix1, matrix2) {
       //  session.updateOutputs();
   
     } else {
-      console.log("Matrix not found in the bay.");
+      // console.log("Matrix not found in the bay.");
     }
   };

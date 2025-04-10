@@ -50,7 +50,7 @@ export const fetchMaterials=async (session)=> {
             materials.push(material);
         });
         
-        console.log(materials,"ammam")
+        // console.log(materials,"ammam")
         const dynamicIconsContainer = document.getElementById("dynamicIcons");
         // const dynamicIconsContainerCounterTop = document.getElementById("dynamicIconsCounterTop");
 
@@ -87,7 +87,7 @@ export const fetchMaterials=async (session)=> {
             dynamicIconsContainer?.appendChild(tooltipDiv);
         });
 
-        console.log(materials,"materials")   
+        // console.log(materials,"materials")   
         setupClickListeners(materials, session);
 
     } catch (error) {

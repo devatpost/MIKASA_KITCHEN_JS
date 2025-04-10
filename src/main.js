@@ -60,17 +60,17 @@ export const updateParameter = async (cabinet) => {
       const data = new InteractionData({ select: true, hover: true });
       const regex = new RegExp(`^${def.output.name}$`); // Create a regex from the name
       const nodes = def.output.node?.getNodesByNameWithRegex(regex) || [];
-      console.log(nodes, `nodes for ${bayKey}`,regex);
+      // console.log(nodes, `nodes for ${bayKey}`,regex);
 
       // const nodes = def.output.node?.getNodesByName(`${def.name}_`) || [];
       // console.log(nodes, `nodes for ${bayKey}`,def.parameter.value);
 
       nodes[0].children.forEach((node, index) => {
         node.data.push(data); // Add InteractionData to all nodes
-        console.log(node,def.counter-1,index,index === def.counter - 1)
+        // console.log(node,def.counter-1,index,index === def.counter - 1)
         if (index === def.counter - 1) {
           node.visible = false; // Only hide the last node
-          console.log("hidding")
+          // console.log("hidding")
         }
         node.updateVersion();
       });
@@ -114,7 +114,7 @@ export const updateParameter = async (cabinet) => {
     });
 
     // Log session and viewport
-    console.log("Viewport and session initialized:", { viewport, session });
+    // console.log("Viewport and session initialized:", { viewport, session });
     viewport.camera.reset();
     viewport.show = true;
 
@@ -122,18 +122,18 @@ export const updateParameter = async (cabinet) => {
     const parameters = session.parameters; // Get all parameters
 //     console.log(outputs,"nenenwen")
     Object.values(parameters).forEach(param => {
-      console.log(param.name);
+      // console.log(param.name);
   });
   Object.values(outputs).forEach(param => {
-    console.log(param.name);
+    // console.log(param.name);
 });
 
 
     Object.values(outputs).forEach(output => {
-      console.log(output,output.name)
+      // console.log(output,output.name)
       if (output.name.startsWith("bc") && output.name!="bay_number" && output.name!="bay_length") {
-        console.log(output.name)
-        console.log("inin")
+        // console.log(output.name)
+        // console.log("inin")
           const bayKey = output.name; // Convert to bay1, bay2
   
           // Initialize the bay object if not already created
@@ -161,8 +161,8 @@ export const updateParameter = async (cabinet) => {
 
   Object.values(outputs).forEach(output => {
     if (output.name.startsWith("wc")) {
-      console.log(output.name)
-      console.log("inin")
+      // console.log(output.name)
+      // console.log("inin")
         const bayKey = output.name; // Convert to bay1, bay2
 
         // Initialize the bay object if not already created
@@ -190,7 +190,7 @@ export const updateParameter = async (cabinet) => {
     // Assign the corresponding parameters
     Object.values(parameters).forEach(param => {
         if (param.name.startsWith("bc")) {
-            console.log(param.name,"paramname")
+            // console.log(param.name,"paramname")
             const newName = param.name.replace("Matrices", "");
             // const bayKey = `bay${bayNumber.toLowerCase()}`;
             const bayKey=newName
@@ -203,7 +203,7 @@ export const updateParameter = async (cabinet) => {
     
     Object.values(parameters).forEach(param => {
       if (param.name.startsWith("wc")) {
-          console.log(param.name,"paramname")
+          // console.log(param.name,"paramname")
           const newName = param.name.replace("Matrices", "");
           // const bayKey = `bay${bayNumber.toLowerCase()}`;
           const bayKey=newName
@@ -221,7 +221,7 @@ export const updateParameter = async (cabinet) => {
   );
   
   
-  console.log("Bays:", bc,wc);
+  // console.log("Bays:", bc,wc);
     await updateParameter(bc);
     await updateParameter(wc);
 

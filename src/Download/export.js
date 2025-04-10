@@ -25,7 +25,7 @@ export async function requestExport(session, exportNames,userName,userEmail) {
                 // }
                     let resultDownloadExport;
                     const downloadExport = downloadExports[0];
-                    console.log(downloadExport)
+                    // console.log(downloadExport)
                     resultDownloadExport = await downloadExport.request();
                     // if(exportName === "Rhino 3D Model"){
                     // function downloadImage(imageUrl:string, filename = 'downloaded-image.jpg') {

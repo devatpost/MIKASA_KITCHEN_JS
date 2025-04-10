@@ -45,9 +45,9 @@ export const createDownloadHandler = (session) => {
             selectedExports.splice(index, 1);
           }
         }
-        console.log("Selected Exports:", selectedExports);
+        // console.log("Selected Exports:", selectedExports);
         const downloadArrow=document.getElementsByClassName("downloadArrow")[0];
-        console.log(downloadArrow)
+        // console.log(downloadArrow)
         if(selectedExports.length>0){
             downloadArrow.style.display="flex";
         }else{

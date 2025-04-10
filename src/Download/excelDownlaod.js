@@ -47,7 +47,7 @@ export const Excel = (userName,userEmail,type) => {
 
     // Initialize dataRows array
     const dataRows = [];
-    console.log(excelData)
+    // console.log(excelData)
     // Process bays
     excelData.forEach((obj, index) => {
         dataRows.push({
@@ -60,7 +60,7 @@ export const Excel = (userName,userEmail,type) => {
         });
     });
 
-    console.log(dataRows,"rororo")
+    // console.log(dataRows,"rororo")
     // // Process pipes (continuing the serial number from bays)
     // Object.entries(jsonData.pipes).forEach(([key, value], index) => {
     //     let temp;

@@ -4,7 +4,7 @@ export const toggleShutter=(session)=>{
     const shutter=Object.values(session.parameters).filter(
         (field) => field.name === "Preview Shutters"
       )[0];
-      console.log(shutter,"shutter")
+      // console.log(shutter,"shutter")
     const button=document.getElementById("previewShuttersButton");
     button.addEventListener("click",async()=>{
        if(shutter.value){

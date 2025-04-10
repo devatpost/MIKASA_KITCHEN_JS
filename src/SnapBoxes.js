@@ -2,7 +2,7 @@ import { session } from "./main"
 
 export const handleSnapBoxesRemoval=(index,def)=>{
   let snapBoxName;
-  console.log(def,"cabineinteitn")
+  // console.log(def,"cabineinteitn")
   if(def.name.includes("bc")){
     snapBoxName="Base Snapbox"
   }else{

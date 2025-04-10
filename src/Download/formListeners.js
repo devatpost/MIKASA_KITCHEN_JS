@@ -82,7 +82,7 @@ export function setupFormListener(session,selectedExports) {
         }
         // If validation fails, stop submission
         if (!isValid || !userType) {
-            console.log("Validation failed, form not submitted");
+            // console.log("Validation failed, form not submitted");
             return;
         }
 

@@ -31,7 +31,7 @@ const update = (anchor) => {
 
 export const createSnapPoints = async (points) => {
     // const parent = document.getElementById("parentContainer"); // Make sure this exists in your HTML
-    console.log(points,"popdofkjopdsjkfpos")
+    // console.log(points,"popdofkjopdsjkfpos")
     points.forEach((pointData, index) => {
         const anchorDataCustom = new HTMLElementAnchorCustomData({
             location: pointData.point,
@@ -49,7 +49,7 @@ export const createSnapPoints = async (points) => {
 };
 
 export const calcStaticSnapPoints = async (data, len, bayNumber, bayLength, cabinet) => {
-  console.log(data,"datattata")
+  // console.log(data,"datattata")
   const lineLength = bayLength * (bayNumber - 1);
   const y_axis = 0;
   const point1 = vec3.fromValues(data[0].x, -y_axis, data[0].z);
@@ -64,10 +64,10 @@ export const calcStaticSnapPoints = async (data, len, bayNumber, bayLength, cabi
       angle: -Math.PI,
     },
   };
-  console.log(cabinet,"in snapp ",line)
+  // console.log(cabinet,"in snapp ",line)
   // Reset snapLines and assign the new line to all bays
   for (const bayKey in cabinet) {
-    console.log("bayKey",bayKey)
+    // console.log("bayKey",bayKey)
     if (cabinet.hasOwnProperty(bayKey)) {
       cabinet[bayKey].snapLines = [line];
     }

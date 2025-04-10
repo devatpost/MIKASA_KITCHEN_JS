@@ -8,7 +8,7 @@ import { handleSnapBoxesAddition } from "./SnapBoxes";
 export const deleteCabinetHandeler = (e) => {
   const selectEvent = e;
   const selectedNode = selectEvent.node;
-  console.log("Node selected:", selectedNode.parent.name);
+  // console.log("Node selected:", selectedNode.parent.name);
   let parentNode = selectedNode.parent.name;
   let parentGroup = null;
   if (parentNode.includes("bc")) {
@@ -21,7 +21,7 @@ export const deleteCabinetHandeler = (e) => {
   const snapInfo = Object.values(parentGroup)[0].snapPoints.find(
     (snappoint) => snappoint.point[0] === center
   );
-  console.log(snapInfo, "asdnaisndaodnoaks");
+  // console.log(snapInfo, "asdnaisndaodnoaks");
   let index = 0;
   if (snapInfo) {
     index = snapInfo.index;
@@ -69,13 +69,13 @@ export const deleteCabinetHandeler = (e) => {
       rotation: mat4.create(),
       translation: mat4.clone(translationMatrix),
     };
-    console.log(matrixObject, "matrixxiix", allBays);
+    // console.log(matrixObject, "matrixxiix", allBays);
     const existingMatric = allBays.find(
       (bay) =>
         bay.bayName.includes(parentNode) &&
         compareBayMatrices(bay.matrices, matrixObject)
     );
-    console.log(existingMatric);
+    // console.log(existingMatric);
     removeMatrixByComparison(
       parentGroup[existingMatric.bayName],
       existingMatric.matrices
