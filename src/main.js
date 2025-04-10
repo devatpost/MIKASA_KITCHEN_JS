@@ -212,7 +212,6 @@ Object.values(parameters).forEach(param => {
     //Updating parameters to hide the initial box
     await updateParameter(bc);
     await updateParameter(wc);
-
     ({bay_number:bayNumber,bay_length:bayLength}=outputDisplay(session,bc,wc));
 
 
