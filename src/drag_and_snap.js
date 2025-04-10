@@ -36,19 +36,19 @@ let tokenMove="", tokenEnd="";
 
 export const storeBay = (cabinet,matrices, bayName,index) => {
     const existingMatric = allBays.find(bay => compareBayMatrices(bay.matrices, matrices));
-    // console.log(existingMatric,bayName)
+    console.log(existingMatric,bayName)
     if (existingMatric) {
       if (existingMatric.bayName !== bayName) {
         removeMatrixByComparison(cabinet[existingMatric.bayName], existingMatric.matrices);
         existingMatric.bayName = bayName;
-        // console.log(allBays,)
+        console.log(allBays,)
         return true;
       } else {
         return false;
       }
     } else {
       allBays.push({ matrices, bayName ,index });
-    //   console.log(allBays,"asdlkansdkljansflka")
+      console.log(allBays,"asdlkansdkljansflka")
       return true;
     }
 }
@@ -58,7 +58,7 @@ export const storeBay = (cabinet,matrices, bayName,index) => {
     removeListener(tokenMove);
     removeListener(tokenEnd);
 
-    // console.log("handleAddShelf function called");
+    console.log("handleAddShelf function called");
     
     dragManager.removeNode();
     
@@ -95,7 +95,7 @@ export const storeBay = (cabinet,matrices, bayName,index) => {
     const newNode = def.output.node?.getNodesByName(
         `${def.counter-1}`
     )[0];
-    // console.log(newNode,"newNode",def.output.node.getNodesByName(`${def.counter-1}`))
+    console.log(newNode,"newNode",def.output.node.getNodesByName(`${def.counter-1}`))
     
     // Enable dragging for this node
     const data = new InteractionData({ drag: true });
@@ -113,28 +113,28 @@ export const storeBay = (cabinet,matrices, bayName,index) => {
 
     // Move listener for the drag event
     tokenMove = addListener(EVENTTYPE.INTERACTION.DRAG_MOVE, async (e) => {
-        // console.log("Drag move triggered:", e);
+        console.log("Drag move triggered:", e);
 
         if (!mouseDown && !touchDown) {
-            // console.log("Mouse released before entering viewer");
+            console.log("Mouse released before entering viewer");
             dragManager.removeNode();
         } else {
-            // console.log("Viewer entered, making node visible");
+            console.log("Viewer entered, making node visible");
             newNode.visible = true;
             newNode.updateVersion();
         }
         // Remove the listener after it has triggered
-        // console.log("Removing drag move listener");
+        console.log("Removing drag move listener");
         removeListener(tokenMove);
     });
 
     // End listener for the drag event
     tokenEnd = addListener(EVENTTYPE.INTERACTION.DRAG_END, async (e) => {
-        // console.log("Drag end triggered:", e);
+        console.log("Drag end triggered:", e);
 
         const dragEvent = e;
         dragConstraintsIDs.forEach((d) => dragManager.removeDragConstraint(d));
-        // console.log("Removed all drag constraints");
+        console.log("Removed all drag constraints");
 
         const translationMatrix = mat4.fromTranslation(
             mat4.create(),
@@ -157,15 +157,15 @@ export const storeBay = (cabinet,matrices, bayName,index) => {
             translation: translationMatrix,
         };
 
-        // console.log("MatrixObject:", matrixObject);
+        console.log("MatrixObject:", matrixObject);
 
         let xTranslation = transformationMatrix[3];
         const specificSnap = def.snapPoints.find(info => info.point[0] === xTranslation);
-        // console.log(xTranslation,specificSnap,def.snapPoints,"newew")
+        console.log(xTranslation,specificSnap,def.snapPoints,"newew")
 
         let index = specificSnap ? specificSnap.index : undefined;
         
-        // console.log("Snap index:", index);
+        console.log("Snap index:", index);
 
         if (index !== undefined && storeBay(cabinet,matrixObject, bayName, index)) {
             def.matrices[def.matrices.length - 1].rotation = rotationMatrix;
@@ -181,19 +181,19 @@ export const storeBay = (cabinet,matrices, bayName,index) => {
             }
 
             def.counter++;
-            // console.log("Updated matrices and parameters for bay:", def);
+            console.log("Updated matrices and parameters for bay:", def);
             updateParameter(cabinet);
             handleSnapBoxesRemoval(index,def);
-            totalCost(allBays,bc,wc);
+            // totalCost(allBays,bc,wc);
         } else {
-            // console.log("Snap index not found or storeBay failed");
+            console.log("Snap index not found or storeBay failed");
             newNode.visible = false;
             newNode.updateVersion(def);
         }
 
         viewport.update();
         // Remove the listener after it has triggered
-        // console.log("Removing drag end listener");
+        console.log("Removing drag end listener");
         removeListener(tokenEnd);
     });
 };

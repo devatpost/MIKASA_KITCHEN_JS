@@ -1,7 +1,6 @@
 
 let initial=true;
 
-//Handle configure and style tab
 export const addAndStyle = ()=>{
     const styleButton=document.getElementById("addStyle");
     const addButton=document.getElementById("addButton");

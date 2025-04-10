@@ -127,12 +127,13 @@ cursor: pointer;
   font-size: 18px;
   color: #000000;
   margin-bottom: 10px;
+  display: flex;
+  gap:10px
 }
 
 .rightCover{
   padding: 15px 25px 0px 25px;
   flex-grow: 1;
-  gap: 50px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -160,18 +161,12 @@ cursor: pointer;
   border: #DCDCDB;
   border-top: 2px solid #DCDCDB;
   height: 78px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .cost{
-  padding: 10px 20px;
-  width: 50px;
+  padding: 25px;
   color: #000000;
-  border: 1px solid #000000;
-  border-radius: 10px;
-  cursor: pointer;
+  display: none;
 }
 
 #style{
@@ -423,8 +418,8 @@ input:-webkit-autofill {
   margin-left: 5px;
   margin-bottom: 20px;
   margin-right: 10px;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
   border: 1px solid #000000;
   display: none;
 }
@@ -539,4 +534,22 @@ input[type="checkbox"]:checked {
   position: absolute;
   left:2px;
   bottom:2px;
+}
+
+.option{
+  height: 20px;
+  width: auto;
+  border: 1px solid #000000;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#extrasIcon{
+  display: none;
+}
+
+.selected{
+  background-color: #A89378;
 }
