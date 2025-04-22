@@ -123,10 +123,10 @@ export const updateParameter = async (cabinet) => {
     const parameters = session.parameters; // Get all parameters
 //     console.log(outputs,"nenenwen")
     Object.values(parameters).forEach(param => {
-      console.log(param.name);
+      // console.log(param.name);
   });
   Object.values(outputs).forEach(param => {
-    console.log(param.name,param);
+    // console.log(param.name,param);
 });
 
 const canvasCover=document.getElementsByClassName("canvasCover")[0];
@@ -146,7 +146,7 @@ SDV.addListener(SDV.EVENTTYPE_VIEWPORT.BUSY_MODE_OFF, async(e)=>{ disableLoader(
     Object.values(outputs).forEach(output => {
       // console.log(output,output.name)
       if (output.name.startsWith("bc") && output.name!="bay_number" && output.name!="bay_length") {
-        console.log(output.name)
+        // console.log(output.name)
         // console.log("inin")
           const bayKey = output.name; // Convert to bay1, bay2
   

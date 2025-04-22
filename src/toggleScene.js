@@ -4,7 +4,7 @@ export const toggleScene=(session)=>{
     const shutter=Object.values(session.parameters).filter(
         (field) => field.name === "Preview Scene"
       )[0];
-      console.log(shutter,"shutter")
+    //   console.log(shutter,"shutter")
     const button=document.getElementById("previewWallButton");
     button.addEventListener("click",async()=>{
        if(shutter.value){
