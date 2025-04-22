@@ -33,6 +33,11 @@ export async function loadAR(viewport, session) {
     }
 
     const token = viewport.addFlag(FLAG_TYPE.BUSY_MODE);
+    const shutter=Object.values(session.parameters).filter(
+        (field) => field.name === "Preview Scene"
+      )[0];
+        shutter.value=false;
+        await session.customize();
 
     /**
      * Temporarily hides the wall geometry in the scene during the AR session.
@@ -78,6 +83,8 @@ export async function loadAR(viewport, session) {
  *
  * @returns {void}
  */
+        shutter.value=true;
+        await session.customize();
         viewport.removeFlag(token);
 
         // Re-add animations to the nodes

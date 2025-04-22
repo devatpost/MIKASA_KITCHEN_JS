@@ -546,10 +546,16 @@ input[type="checkbox"]:checked {
   cursor: pointer;
 }
 
-#extrasIcon{
-  display: none;
-}
-
-.selected{
+/* .selected{
   background-color: #A89378;
+} */
+
+.loading-active {
+  background-color: rgba(0, 0, 0, 0.7);
+  /* Black with transparency */
+  filter: blur(5px);
+  /* Apply blur effect */
+  transition: all 0.3s ease;
+  /* Smooth transition */
+  pointer-events: none;
 }

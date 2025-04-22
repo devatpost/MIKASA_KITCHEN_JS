@@ -110,25 +110,25 @@ export const eventListenersSetup=()=>{
     popupBill.style.display = 'none'; // Hide the popup
   });
 
-  let snapPointToggle=false;
-  const snapPointButton=document.getElementById("previewSnapPoints");
-  snapPointButton.addEventListener("click",()=>{
-    const circles = document.getElementsByClassName("anchor-point");
+  // let snapPointToggle=false;
+  // const snapPointButton=document.getElementById("previewSnapPoints");
+  // snapPointButton.addEventListener("click",()=>{
+  //   const circles = document.getElementsByClassName("anchor-point");
 
-    if (snapPointToggle) {
-        Array.from(circles).forEach(circle => {
-            circle.style.display = "flex";
-        });
-    } else {
-        Array.from(circles).forEach(circle => {
-            circle.style.display = "none";
-        });
-    }
-    snapPointToggle=!snapPointToggle
-  })
+  //   if (snapPointToggle) {
+  //       Array.from(circles).forEach(circle => {
+  //           circle.style.display = "flex";
+  //       });
+  //   } else {
+  //       Array.from(circles).forEach(circle => {
+  //           circle.style.display = "none";
+  //       });
+  //   }
+  //   snapPointToggle=!snapPointToggle
+  // })
 
-  const screenshotIcon = document.getElementById('screenshotIcon');
-  screenshotIcon.addEventListener("click",handleScreenshot);
+  // const screenshotIcon = document.getElementById('screenshotIcon');
+  // screenshotIcon.addEventListener("click",handleScreenshot);
 
   
 document.querySelectorAll("[data-tooltip]").forEach((element) => {
@@ -176,8 +176,8 @@ deleteIcon.addEventListener("click",()=>{
     deleteIcon.style.display = "none";
 })
 
-const dimensions=document.getElementById("previewDimensionsButton");
-dimensions.addEventListener("click",toggleDimensions)
-const previewSnapBoxes=document.getElementById("previewSnapBoxes");
-previewSnapBoxes.addEventListener("click",toggleSnapBoxes)
+// const dimensions=document.getElementById("previewDimensionsButton");
+// dimensions.addEventListener("click",toggleDimensions)
+// const previewSnapBoxes=document.getElementById("previewSnapBoxes");
+// previewSnapBoxes.addEventListener("click",toggleSnapBoxes)
 }

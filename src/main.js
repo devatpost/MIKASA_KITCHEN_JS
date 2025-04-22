@@ -30,6 +30,7 @@ import { handleSnapBoxesAddition } from "./SnapBoxes";
 import { deleteCabinetHandeler } from "./deleteCabinets";
 import { eventListenersSetup } from "./eventListeners";
 import { createParameterMenu } from "./Parameters/parameters";
+import { toggleScene } from "./toggleScene";
 
 export let viewport;
 export let session;
@@ -108,7 +109,7 @@ export const updateParameter = async (cabinet) => {
     });
     session = await createSession({
       ticket:
-      "aa3c285225d7673e1b76cafbb798be5436149f5c186b2e9e87d03f51799be558f14fdc16218ef6fc9ec45304ba96b3ffa443eb229d333c1190f0cebebb9f1b033bc2dc5c43c5ae36896e9391584fbfc4f4b2872f4ea0fdeb2919511ba38d6be739af16598a8316-93c750b95d72954a73d54f3a121c89da",
+      "9e6277457d5a6ed64f078da9e72909a060fd10ab5d2f789e153c56dd1964522e384960f20167070ec0ef2d2c2dfab4c7579c1bfe6b8488092b42568afdc3a5dbd93aaf43ca76c4840f60192043d1718f699488701d546a440c7ba61e8dc6f914e62e36617ad79c-e3524d20d3dca4b4781eb49a3be38a35",
       modelViewUrl: "https://sdr8euc1.eu-central-1.shapediver.com",
       id: "mySession"
     });
@@ -122,17 +123,30 @@ export const updateParameter = async (cabinet) => {
     const parameters = session.parameters; // Get all parameters
 //     console.log(outputs,"nenenwen")
     Object.values(parameters).forEach(param => {
-      // console.log(param.name);
+      console.log(param.name);
   });
   Object.values(outputs).forEach(param => {
-    // console.log(param.name);
+    console.log(param.name,param);
 });
+
+const canvasCover=document.getElementsByClassName("canvasCover")[0];
+const enableLoader = () => {
+  canvasCover?.classList.add('loading-active');  // Apply blur effect
+};
+
+// Function to disable the loader (remove blur effect and hide loader)
+const disableLoader = () => {
+  canvasCover?.classList.remove('loading-active');  // Remove blur effect
+};
+
+SDV.addListener(SDV.EVENTTYPE_VIEWPORT.BUSY_MODE_ON,async(e) =>{ enableLoader()});  // Loader starts (busy)
+SDV.addListener(SDV.EVENTTYPE_VIEWPORT.BUSY_MODE_OFF, async(e)=>{ disableLoader()}); 
 
 
     Object.values(outputs).forEach(output => {
       // console.log(output,output.name)
       if (output.name.startsWith("bc") && output.name!="bay_number" && output.name!="bay_length") {
-        // console.log(output.name)
+        console.log(output.name)
         // console.log("inin")
           const bayKey = output.name; // Convert to bay1, bay2
   
@@ -248,6 +262,7 @@ export const updateParameter = async (cabinet) => {
     fetchMaterials(session);
     createDownloadHandler(session)
     toggleShutter(session)
+    toggleScene(session)
     totalCost(Object.values(session.parameters).find((obj)=>obj.name === "Sofa Type").value)
     eventListenersSetup()  
   } catch (error) {
