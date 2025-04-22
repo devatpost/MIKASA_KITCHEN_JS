@@ -28,7 +28,7 @@ export const createStringListParameterElement = (session, parameterObject,Config
         const option=document.createElement("div");
         option.classList.add(paramName);
         if(index===Number(parameterObject.value)){
-            option.classList.add("selected");
+            option.classList.add("selectedOption");
         }
             option.innerText=name;
             option.id = `${index}`;
@@ -38,8 +38,8 @@ export const createStringListParameterElement = (session, parameterObject,Config
             // Attach event listener for each button
             option.addEventListener("click", async() => {
                 const allOptions = options.querySelectorAll(`.${paramName}`);
-                allOptions.forEach(opt => opt.classList.remove("selected"));
-                option.classList.add("selected");
+                allOptions.forEach(opt => opt.classList.remove("selectedOption"));
+                option.classList.add("selectedOption");
                 await updateFeaturesParameters(session,parameterObject,option.id);
                 totalCost(parameterObject.value)
             });

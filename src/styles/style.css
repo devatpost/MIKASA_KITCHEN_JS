@@ -546,9 +546,9 @@ input[type="checkbox"]:checked {
   cursor: pointer;
 }
 
-/* .selected{
+.selectedOption{
   background-color: #A89378;
-} */
+}
 
 .loading-active {
   background-color: rgba(0, 0, 0, 0.7);
