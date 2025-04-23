@@ -540,3 +540,8 @@ input[type="checkbox"]:checked {
   left:2px;
   bottom:2px;
 }
+
+.svg-icon{
+  height: 20px;
+  width: 20px;
+}
