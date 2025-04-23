@@ -559,3 +559,8 @@ input[type="checkbox"]:checked {
   /* Smooth transition */
   pointer-events: none;
 }
+
+.svg-icon{
+  height: 20px;
+  width: 20px;
+}
