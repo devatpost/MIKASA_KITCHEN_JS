@@ -109,7 +109,7 @@ export const updateParameter = async (cabinet) => {
     });
     session = await createSession({
       ticket:
-      "9e6277457d5a6ed64f078da9e72909a060fd10ab5d2f789e153c56dd1964522e384960f20167070ec0ef2d2c2dfab4c7579c1bfe6b8488092b42568afdc3a5dbd93aaf43ca76c4840f60192043d1718f699488701d546a440c7ba61e8dc6f914e62e36617ad79c-e3524d20d3dca4b4781eb49a3be38a35",
+      "05f4a7acb455e5311fc6eed6a2ea0123f091bbd011ee98201c127d4f37c7615837aa472743301e3541e597b46d3872d91773145304829a41c52e2cb27b2c9552b06d9301c66b20b75baa80fc365220fcc1fabe908ea4961f2b376e3a836780f520f794780664c6-85acca2473b543ad860b3f0ee65b6c37",
       modelViewUrl: "https://sdr8euc1.eu-central-1.shapediver.com",
       id: "mySession"
     });
@@ -123,16 +123,21 @@ export const updateParameter = async (cabinet) => {
     const parameters = session.parameters; // Get all parameters
 //     console.log(outputs,"nenenwen")
     Object.values(parameters).forEach(param => {
-      // console.log(param.name);
+      // console.log(param.name,param);
   });
   Object.values(outputs).forEach(param => {
-    // console.log(param.name,param);
+    //console.log(param.name,param);
 });
 
 const canvasCover=document.getElementsByClassName("canvasCover")[0];
 const enableLoader = () => {
   canvasCover?.classList.add('loading-active');  // Apply blur effect
 };
+
+const param = Object.values(session.parameters).find(p => p.name === "Fabric_X_scale");
+param.value=0.2;
+await session.customize();
+
 
 // Function to disable the loader (remove blur effect and hide loader)
 const disableLoader = () => {

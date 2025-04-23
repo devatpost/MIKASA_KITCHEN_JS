@@ -219,8 +219,13 @@ export async function updateOuterParameters(session,
         // console.log(paramName,value,"maateiralla")
         if (value !== undefined && value !== null) {
             const param = Object.values(session.parameters).find(p => p.name === paramName);
+            // console.log(param,"param in color")
             if (param) 
             param.value = value;
+            const param2 = Object.values(session.parameters).find(p => p.name === "Fabric_X_scale");
+            param2.value=2.5;
+            const param3 = Object.values(session.parameters).find(p => p.name === "Fabric_Y_scale");
+            param3.value=2.5;
             await session.customize();
             } else {
                 console.error(`${paramName} parameter not found in session.`);
