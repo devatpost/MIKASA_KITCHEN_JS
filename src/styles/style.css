@@ -38,7 +38,6 @@ h1 {
 }
 
 #app {
-  max-width: 1280px;
   text-align: center;
 }
 
@@ -79,19 +78,19 @@ h1 {
 
 .canvasCover{
   width: 70%;
-  height: calc(100vh - 148px);
+  height: calc(100vh - 115px);
 }
 
 .widthFull{
   width: 100vw;
   display: flex;
-  height: calc(100vh - 148px);
+  height: calc(100vh - 115px);
   margin: 0px;
 }
 
 .rightBox{
   width: 30%;
-  height: calc(100vh - 148px);
+  height: calc(100vh - 115px);
   background-color: #ffffff;
   display: flex;
   flex-direction: column;

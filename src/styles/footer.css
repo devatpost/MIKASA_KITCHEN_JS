@@ -1,63 +1,51 @@
 
 .footer{
-    position: absolute;
-    bottom: 0%;
     background-color:#FFFFFF ;
-    height: 77px;
+    height: 55px;
     width: 100%;
     display: flex;
     flex-direction: column;
-    left:0
   }
   
   .footerBox{
     /* position: absolute; */
-    border: 1px solid #D8D8D8;
+    border-top: 1px solid #D8D8D8;
     height:55px;
     width: 100%;
   }
   
-  .footerInner{
+.footerInner {
     display: flex;
     height: 32px;
-    margin-left: 40px;
-    margin-right: 32px;
-    margin-top: 11.5px;
-    margin-bottom: 11.5px;
-  /* border: 1px solid blue; */
-  color: #000000;
-  justify-content: space-between;
-  }
+    margin: 11.5px 32px 11.5px 40px;
+    color: #000;
+    justify-content: space-between;
+}
   
-  .outerFlex{
+  /* .outerFlex{
     display: flex;
     flex-direction: column;
     height: 31px;
-  }
+  } */
   
   .imgFlex{
-    margin-top: 2px;
     display:flex;
-    height: 14px;
+    margin-top: 2px;
+    height: 12px;
     align-items: center;
     font-weight: 500;
   }
-  
-  .footerText{
-    display: block;
-    height: 12px;
-    font-size: 14px;
-  }
+
   
   .sameFlex{
     display: flex;
-    height: 32px;
+    height: 30px;
     align-items: center;
     cursor: default;
   }
   
   .flexCol{
-    margin-left: 8px;
+    margin-left: 12px;
     display: flex;
     flex-direction: column;
     font-size: 16px;
@@ -77,8 +65,23 @@
   .lowerText{
     display: flex;
     align-items: left;
-    font-size: 12px;
+    margin-top: 4px;
+    font-size: 10px;
   }
+
+  .footImg {
+    width: 110px;
+    height: 30px;
+   }
+
+   .footerText{
+    display: block;
+    margin-top: 6px;
+    margin-left: 12px;
+    height: 8px;
+    font-size: 10px;
+    text-align: left;
+   }
 
   .bottomInfo{
     color:#6D7280;
