@@ -12,7 +12,7 @@ export const createUI=(cabinet,container)=>{
         button.id = `${bayKey}Btn`;
 
         const img = document.createElement("img");
-        img.src = `/assets/${bayKey}.jpg`;
+        img.src = `./assets/${bayKey}.jpg`;
         img.alt = `Add ${bayKey}`;
         img.width = 70;
         img.height = 70;
