@@ -1,4 +1,12 @@
 
+input:-webkit-autofill {
+    border: 1px solid #7C7C7C !important;
+    -webkit-box-shadow: 0 0 0px 1000px rgb(255, 255, 255) inset !important;
+    -webkit-text-fill-color: #000000 !important; /* Ensures text color is black */
+font-family: 'inter';
+    /* Match focus background */
+}
+
 .inputpopup {
     top: 50%;
     left: 50%;
@@ -10,7 +18,7 @@
     display: none; /* Initially hidden*/
     z-index: 1000;
     width: 600px;
-    height: 400px;
+    height: 450px;
     position: fixed;
     min-width:600px;
   }
@@ -30,18 +38,19 @@
     max-width: 243px;
     width: 315px;
     padding: 8px;
-    margin: 5px 0 5px 0px;
-    border: 1px solid #7C7C7C;
-    border-radius: 5px;
+    /* margin: 5px 0 5px 0px; */
+    /* border: 1px solid #7C7C7C; */
+    border: none;
+    border-radius: 25px;
     display: block;
-    max-height: 29px;
-    background-color: #ffffff;
-    font-size: 12px;
+    height: 29px;
+    background-color: #f2f2f2;
+    font-size: 10px;
     color: #000000;
   }
   
   .inputpopup button:hover {
-    background-color: #0056b3;
+    background-color: #a47764;
   }
   
   .error-input {
@@ -53,7 +62,7 @@
   .outerBoxInitial{
     display: flex;
     width: 100%;
-    margin:19px;
+    margin:15px 15px 15px 20px;
     justify-content: space-between;
   }
   
@@ -73,30 +82,30 @@
   
   .initialPopupImg{
     /* min-width: 48%; */
-    flex:0 0 38%
+    flex:0 0 43%
   }
   
   .userInfoPopup-main-text-2{
-    font-family: 'Poppins', sans-serif;
+font-family: 'inter';
     font-size: 18px;
     font-weight: 400;
     color: #000000;
     line-height: 30px;
     white-space: nowrap;
-    margin-top: 5px;
+    /* margin-top: 5px; */
   }
   
   .userInfoPopup-subtext-2{
-    font-family: 'Poppins', sans-serif;
+font-family: 'inter';
     font-size: 12px;
     color: #7C7C7C;
-    margin-top: 5px;
+    /* margin-top: 5px; */
     line-height: 13px;
   }
   
   .namePopup{
-    min-height: 180px;
-    margin-top: 15px;
+    height: auto;
+    margin-top: 10px;
   }
   
   .bottomPopup{
@@ -116,8 +125,36 @@
     color: #7C7C7C; /* Set the placeholder color to white */
     opacity: 1;   /* Ensure the color is fully opaque */
     font-size: 10px;
-  
   }
+
+  #project-input::placeholder {
+    color: #7C7C7C; /* Set the placeholder color to white */
+    opacity: 1;   /* Ensure the color is fully opaque */
+    font-size: 10px;
+  }
+
+    #remarks-input::placeholder {
+    color: #7C7C7C; /* Set the placeholder color to white */
+    opacity: 1;   /* Ensure the color is fully opaque */
+    font-size: 10px;
+  }
+
+
+    /* This styles the select field when the placeholder is still selected */
+    #room-type-input {
+      font-family: 'inter';
+      font-size: 10px;         /* placeholder size */
+      color: #000000;          /* placeholder color */
+    }
+
+    /* This applies once a valid option is selected */
+    #room-type-input:valid {
+      font-size: 10px;         /* normal text size */
+      color: #000000;          /* normal text color */
+    }
+
+
+
   
   .buttonPopup{
     width: 100%;
@@ -127,19 +164,20 @@
     background-color: #000000;
     color: #fff;
     border: none;
-    border-radius: 10px;
+    border-radius: 25px;
     cursor: pointer;
-    width: 187px;
-    height: 32px;
+    padding: 6px 24px;
+    width: fit-content;
     display: flex;
     align-items: center;
     text-align: center;
-    margin-top: 56px;
     margin-bottom: 5px;
+    justify-content: center;
+    margin-top: 21px;
   }
   
   .customSpan{
-    font-family: 'Poppins', sans-serif;
+font-family: 'inter';
     line-height: 150%;
     margin:auto
   }
@@ -151,30 +189,30 @@
   
   .customShift1{
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   
   .customShift2{
     position: relative;
+    margin-bottom: 10px;
   }
   
   .error-input1{
-    position: absolute;
-    bottom: -53%;
     color: red;
     font-size: 10px;
+    gap:5px;
     display: none;
-    gap:5px
+    align-items: center;
   }
   
   .error-input2{
-    position: absolute;
-    bottom: -53%;
     color: red;
     font-size: 10px;
     display: none;
     gap:5px;
-    font-family: 'Poppins', sans-serif;
+font-family: 'inter';
+    align-items: center;
+
   }
   
   .customHeight{
@@ -185,47 +223,8 @@
     margin-top: 10px;
   }
   
-  .radio-container {
-    display: flex; /* Makes the radio buttons align horizontally */
-    gap: 35px; /* Adds space between the radio options */
-    align-items: center;
-  }
-  
-  .radio-items_1 {
-    display: flex;
-    align-items: center;
-    margin-left: -3px;
-  }
-  
-  /* Optional styling for inputs and labels */
-  .radio-items_1 input[type="radio"] {
-    appearance: none;
-    content: '';
-    display: inline-block;
-    width: 15px;
-    height: 12px;
-    border-radius: 4px;
-    border: 1px solid #111111;
-    background-color: #fff;
-    margin-right: 10px;
-    cursor: pointer;
-  }
-  
-  .radio-items_1 label {
-    cursor: pointer;
-    margin-top:4px;
-    font-family: 'Poppins', sans-serif;
-    color: #000000;
-    font-size: 10px;
-    font-weight: 300;
-  }
-  
-  .radio-items_1 input[type="radio"]:checked {
-    background-color: #A89378;
-    border: 1px solid #111111;
-  }
   .headFont{
-    font-family: 'Poppins', sans-serif;
+    font-family: 'inter';
     color: #000000;
     font-size: 12px;
   }
@@ -256,7 +255,7 @@
   }
   
   .bottomPopup {
-    font-family: 'Poppins', sans-serif;
+font-family: 'inter';
     font-size: 10px;
     color: #7C7C7C;
     display: flex;
@@ -267,3 +266,64 @@
     width: 100%;
   }
   
+  .headBox{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 20px;
+    width: 243px;
+  }
+
+  .checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-family: 'inter';
+  font-size: 10px;
+  color: #000000;
+  position: relative;
+  padding-left: 25px;
+  user-select: none;
+}
+
+/* Hide the default checkbox */
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Custom checkmark design */
+.checkmark {
+  position: absolute;
+  left: 0;
+  height: 14px;
+  width: 14px;
+  background-color: #f2f2f2;
+  border-radius: 3px;
+  border: 1px solid #7C7C7C;
+}
+
+/* Checked state */
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #000000;
+  border-color: #000000;
+}
+
+/* Add tick */
+.checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark::after {
+  display: block;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}

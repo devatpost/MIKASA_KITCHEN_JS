@@ -48,7 +48,7 @@ export const storeBay = (cabinet,matrices, bayName,index) => {
       }
     } else {
       allBays.push({ matrices, bayName ,index });
-    //   console.log(allBays,"asdlkansdkljansflka")
+     console.log(allBays,"asdlkansdkljansflka")
       return true;
     }
 }
@@ -183,7 +183,7 @@ export const storeBay = (cabinet,matrices, bayName,index) => {
             def.counter++;
             // console.log("Updated matrices and parameters for bay:", def);
             updateParameter(cabinet);
-            handleSnapBoxesRemoval(index,def);
+            handleSnapBoxesRemoval(index,def.name);
             totalCost(allBays,bc,wc);
         } else {
             // console.log("Snap index not found or storeBay failed");

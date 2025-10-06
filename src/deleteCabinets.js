@@ -16,6 +16,7 @@ export const deleteCabinetHandeler = (e) => {
   } else if (parentNode.includes(WallCabinet)) {
     parentGroup = wc;
   }
+  console.log(parentGroup,"parentgroo",parentNode)
   // Get the center point
   const center = selectedNode.boundingBox.boundingSphere.center[0];
   const snapInfo = Object.values(parentGroup)[0].snapPoints.find(
@@ -68,20 +69,22 @@ export const deleteCabinetHandeler = (e) => {
       rotation: mat4.create(),
       translation: mat4.clone(translationMatrix),
     };
-    // console.log(matrixObject, "matrixxiix", allBays);
+    console.log(matrixObject, "matrixxiix", allBays);
     const existingMatric = allBays.find(
       (bay) =>
         bay.bayName.includes(parentNode) &&
         compareBayMatrices(bay.matrices, matrixObject)
     );
-    // console.log(existingMatric);
+    console.log(existingMatric);
     removeMatrixByComparison(
       parentGroup[existingMatric.bayName],
       existingMatric.matrices
     );
     const allBayIndex = allBays.findIndex((mat) =>
+      mat.bayName.includes(parentNode) &&
       compareBayMatrices(mat.matrices, matrixObject)
     );
+    console.log(allBayIndex,allBays)
     if (allBayIndex != -1) allBays.splice(allBayIndex, 1);
     await updateParameter(parentGroup);
     totalCost(allBays, bc, wc);

@@ -12,6 +12,9 @@ import { toggleDimensions } from "./Utility Icons/toggleDimensions";
 import { handleUnitToggle } from "./Utility Icons/toggleUnit";
 import { handleDefaultScene } from "./Utility Icons/handleDefaultscene";
 import { toggleScene } from "./Utility Icons/toggleScene";
+import { handleInputs } from "./Save Design/InputHandeler";
+import { sendEmail } from "./Save Design/ReachoutMail";
+import { sendDataToServer } from "./Save Design/DesignHandler";
 
 
 export let selectedNode;
@@ -19,16 +22,16 @@ export let selectedNode;
 export const eventListenersSetup=()=>{
   document.getElementById("loadingOverlay").style.display = "none";
     //user info popup
-  const popup = document.querySelector('.inputpopup');
-  const overlay = document.querySelector('.popup-overlay-input') ;
-  const configure = document.getElementById('configure');
-  configure.addEventListener('click', () => {
-    // Get the currently checked radio button
-    const selectedRadio = document.querySelector('input[name="roleType"]:checked');
-    const userType = selectedRadio ? selectedRadio.value : ''; // Fallback to empty string if none selected
+  // const popup = document.querySelector('.inputpopup');
+  // const overlay = document.querySelector('.popup-overlay-input') ;
+  // const configure = document.getElementById('configure');
+  // configure.addEventListener('click', () => {
+  //   // Get the currently checked radio button
+  //   const selectedRadio = document.querySelector('input[name="roleType"]:checked');
+  //   const userType = selectedRadio ? selectedRadio.value : ''; // Fallback to empty string if none selected
 
-    handleInputsForDownloads(userType);
-  });
+  //   handleInputsForDownloads(userType);
+  // });
   // setTimeout(() => {
   //     popup.style.display = 'flex';
   //     overlay.style.display = 'block';
@@ -208,4 +211,42 @@ defaultScene.addEventListener("click",handleDefaultScene);
 const Scene=document.getElementById("previewWallButton");
 Scene.addEventListener("click",toggleScene);
 
+
+//Save Design Listeners
+const material_info = JSON.stringify(
+  [
+    {"Surface_Type": ["Wood","Laminate"] },
+    { "Finish_Type": ["All"]}
+  ]
+);
+
+const saveDesign=document.getElementById("saveDesign");
+saveDesign.addEventListener("click",()=>{
+    const overlay = document.querySelector(".popup-overlay-input");
+    const popup = document.querySelector(".inputpopup");
+    popup.style.display = "flex";
+    overlay.style.display = "block";  
+})
+
+const continueBtn = document.getElementById("reachout");
+continueBtn?.addEventListener("click", () => {
+  let val = handleInputs();
+  console.log("val",val)
+  if (val) {
+    sendEmail(val.name, val.email);
+    sendDataToServer(material_info, val);
+  } else {
+    console.log("error");
+  }
+});
+document.getElementById("initialPopupCross")?.addEventListener("click", function () {
+    popup.style.display = "none";
+    overlay.style.display = "none";
+    const nameError = document.getElementById("nameError");
+    const emailError = document.getElementById("emailError");
+    const projectError = document.getElementById("projectError");
+    nameError.style.display = "none";
+    emailError.style.display = "none";
+    projectError.style.display = "none";
+  });
 }

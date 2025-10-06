@@ -22,6 +22,9 @@ import { fetchMaterials } from "./Materials/dynamicMaterial";
 import { eventListenersSetup } from "./eventListeners";
 import { toggleShutter } from "./Utility Icons/toggleShutter";
 import { BaseCabinet, WallCabinet } from "./constants";
+import { fetchDesignData } from "./Save Design/DesignHandler";
+import { applyLoadedParam } from "./Save Design/DesignParam";
+import { handleSnapBoxesRemoval } from "./SnapBoxes";
 
 export let viewport;
 export let session;
@@ -52,6 +55,7 @@ export const updateParameter = async (cabinet) => {
       const data = new InteractionData({ select: true, hover: true });
       const regex = new RegExp(`^${def.output.name}$`); // Create a regex from the name
       const nodes = def.output.node?.getNodesByNameWithRegex(regex) || [];
+      console.log(nodes,"new nodes")
       // console.log(nodes, `nodes for ${bayKey}`,regex);
 
       // const nodes = def.output.node?.getNodesByName(`${def.name}_`) || [];
@@ -106,112 +110,119 @@ export const updateParameter = async (cabinet) => {
       id: "mySession"
     });
 
-    // Log session and viewport
-    // console.log("Viewport and session initialized:", { viewport, session });
-    viewport.camera.reset();
+             Object.values(session.parameters).forEach((param)=>{
+          console.log(param,param.name) 
+         })
 
+    const loadedParam = await fetchDesignData();
+    let parsed = null;
+
+    if (loadedParam?.[0]?.param_json) {
+      parsed = JSON.parse(loadedParam[0].param_json);
+      await applyLoadedParam(parsed.parameters);
+      allBays=parsed.allBays
+      console.log(allBays)
+    }
+
+    // reset bc, wc fresh
+    bc = {};
+    wc = {};
+
+    // get all outputs and parameters
+    const outputs = session.outputs;
+    const parameters = session.parameters;
+
+    viewport.camera.reset(); 
     viewport.show = true;
 
-    const outputs = session.outputs; // Get all outputs
-    const parameters = session.parameters; // Get all parameters
-//     console.log(outputs,"nenenwen")
-//     Object.values(parameters).forEach(param => {
-//       console.log(param.name);
-//   });
-//   Object.values(outputs).forEach(param => {
-//     console.log(param.name);
-// });
-
-//Getting outputs for Base Cabinets
     Object.values(outputs).forEach(output => {
       if (output.name.startsWith(BaseCabinet)) {
-          const bayKey = output.name; // Convert to bay1, bay2
-  
-          // Initialize the bay object if not already created
-          if (!bc[bayKey]) {
-              bc[bayKey] = {
-                  output: null,
-                  parameter: null,
-                  counter: 1,
-                  matrices: [{
-                      transformation: mat4.create(),
-                      rotation: mat4.create(),
-                      translation: mat4.create()
-                  }]
-              };
-          }
-  
-          // Assign the output
-          bc[bayKey].output = output;
-          bc[bayKey].snapLines = [];
-          bc[bayKey].snapPoints = [];
-          bc[bayKey].name=bayKey
+        const bayKey = output.name;
 
+        // Check if saved state exists for this bay
+        const saved = parsed?.outputs?.base?.[bayKey];
+
+        bc[bayKey] = {
+          output,
+          parameter: null,
+          counter: saved ? saved.counter : 1,
+          matrices: saved
+            ? saved.matrices.map(m => ({
+                transformation: mat4.clone(m.transformation),
+                rotation: mat4.clone(m.rotation),
+                translation: mat4.clone(m.translation),
+              }))
+            : [{
+                transformation: mat4.create(),
+                rotation: mat4.create(),
+                translation: mat4.create(),
+              }],
+          snapLines: [],
+          snapPoints: [],
+          name: bayKey,
+        };
       }
-  });
-
-  //Getting outputs for Wall Cabinets
-  Object.values(outputs).forEach(output => {
-    if (output.name.startsWith(WallCabinet)) {
-        const bayKey = output.name; // Convert to bay1, bay2
-
-        // Initialize the bay object if not already created
-        if (!wc[bayKey]) {
-            wc[bayKey] = {
-                output: null,
-                parameter: null,
-                counter: 1,
-                matrices: [{
-                    transformation: mat4.create(),
-                    rotation: mat4.create(),
-                    translation: mat4.create()
-                }]
-            };
-        }
-
-        // Assign the output
-        wc[bayKey].output = output;
-        wc[bayKey].snapLines = [];
-        wc[bayKey].snapPoints = [];
-        wc[bayKey].name=bayKey
-    }
-});
-    
-//Getting parameters for Base Cabinets
-Object.values(parameters).forEach(param => {
-        if (param.name.startsWith(BaseCabinet)) {
-            const newName = param.name.replace("Matrices", "");
-            // const bayKey = `bay${bayNumber.toLowerCase()}`;
-            const bayKey=newName
-    
-            if (bc[bayKey]) {
-                bc[bayKey].parameter = param;
-            }
-        }
     });
-    
-    //Getting parameters for Wall Cabinets
+
+    Object.values(outputs).forEach(output => {
+      if (output.name.startsWith(WallCabinet)) {
+        const bayKey = output.name;
+
+        const saved = parsed?.outputs?.wall?.[bayKey];
+
+        wc[bayKey] = {
+          output,
+          parameter: null,
+          counter: saved ? saved.counter : 1,
+          matrices: saved
+            ? saved.matrices.map(m => ({
+                transformation: mat4.clone(m.transformation),
+                rotation: mat4.clone(m.rotation),
+                translation: mat4.clone(m.translation),
+              }))
+            : [{
+                transformation: mat4.create(),
+                rotation: mat4.create(),
+                translation: mat4.create(),
+              }],
+          snapLines: [],
+          snapPoints: [],
+          name: bayKey,
+        };
+      }
+    });
+
+    // base parameters
+    Object.values(parameters).forEach(param => {
+      if (param.name.startsWith(BaseCabinet)) {
+        const bayKey = param.name.replace("Matrices", "");
+        if (bc[bayKey]) bc[bayKey].parameter = param;
+      }
+    });
+
+    // wall parameters
     Object.values(parameters).forEach(param => {
       if (param.name.startsWith(WallCabinet)) {
-          const newName = param.name.replace("Matrices", "");
-          // const bayKey = `bay${bayNumber.toLowerCase()}`;
-          const bayKey=newName
-  
-          if (wc[bayKey]) {
-              wc[bayKey].parameter = param;
-          }
+        const bayKey = param.name.replace("Matrices", "");
+        if (wc[bayKey]) wc[bayKey].parameter = param;
       }
-  });
-  bc = Object.fromEntries(
-    Object.entries(bc).sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
-  );
-  wc = Object.fromEntries(
-    Object.entries(wc).sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
-  );
-  
-    //Updating parameters to hide the initial box
+    });
+
+    // sort them
+    bc = Object.fromEntries(Object.entries(bc).sort(([a], [b]) => a.localeCompare(b)));
+    wc = Object.fromEntries(Object.entries(wc).sort(([a], [b]) => a.localeCompare(b)));
+
+    console.log("FINAL:", bc, wc);
+
     await updateParameter(bc);
     await updateParameter(wc);
+    
+    console.log(typeof allBays,allBays,"alalbaysb");
+    allBays.forEach((bay)=>
+      handleSnapBoxesRemoval(bay.index,bay.bayName)
+    );
+  
+    //Updating parameters to hide the initial box
     ({bay_number:bayNumber,bay_length:bayLength}=outputDisplay(session,bc,wc));
 
 

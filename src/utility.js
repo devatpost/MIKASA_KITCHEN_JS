@@ -12,6 +12,8 @@ export function compareMat4(matrix1, matrix2) {
   
   
   export function compareBayMatrices(matrices1, matrices2) {
+    console.log(compareMat4(matrices1.transformation, matrices2.transformation) ,   compareMat4(matrices1.rotation, matrices2.rotation),compareMat4(matrices1.translation, matrices2.translation))
+    console.log(matrices1.transformation,matrices2.transformation)
     return (
       compareMat4(matrices1.transformation, matrices2.transformation) &&
       compareMat4(matrices1.rotation, matrices2.rotation) &&

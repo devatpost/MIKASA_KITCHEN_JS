@@ -154,14 +154,18 @@ cursor: pointer;
   padding: 5px;
 }
 
-.total{
-  margin: 0px 25px 0px 25px;
-  border: #DCDCDB;
-  border-top: 2px solid #DCDCDB;
-  height: 78px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.total {
+    margin: 0px 25px 0px 25px;
+    border: #DCDCDB;
+    border-top: 2px solid #DCDCDB;
+    height: 78px;
+    display: flex;
+    gap: 5px;
+    color: #000000;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 10px 0px;
 }
 
 .cost{
@@ -543,4 +547,18 @@ input[type="checkbox"]:checked {
 .svg-icon{
   height: 20px;
   width: 20px;
+}
+
+.normal-button {
+    position: relative;
+    padding: 10px 20px;
+    background-color: #FFFFFF !important;
+    color: #000000;
+    cursor: pointer;
+    border-radius: 26px;
+    border: 1px solid #c7c7c7;
+    height: 37px;
+    font-size: 13.33px;
+    align-items: center;
+    display: flex;
 }

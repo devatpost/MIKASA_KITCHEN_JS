@@ -144,10 +144,13 @@
               </div>
             </div>
             </div>
-          <div class="total">
-            <div>Total Cost</div>
-            <div class="cost" id="totalPrice">$200.00</div>
-          </div>
+            <div class="total">
+                <div>Total Cost</div>
+                <div class="cost" id="totalPrice">$200.00</div>
+             <div class="normal-button" id="saveDesign">
+              Save Design
+             </div>
+            </div>
           </div>
       </div>
               <div class="footer" id="footer">
@@ -240,72 +243,6 @@
       </div>
     </div>
   </div>
-  <!-- user Popup -->
-  <div class="inputpopup" id="iniPopup">
-      <div class="outerBoxInitial">
-          <div class="leftBoxInitial">
-              <div>
-                  <div class="userInfoPopup-main-text-2">
-                      WELCOME TO MIKASA !
-                  </div>
-                  <div class="userInfoPopup-subtext-2">
-                     You are 2 steps away from awesomeness.
-                  </div>
-              </div>
-              <div class="namePopup">
-                  <div class="customShift1">
-                      <div class="headFont">Name*</div>
-                      <input type="text" id="name-input" placeholder="Enter your Name" class="ininput"/>
-                      <div id="nameError" class="error-input1">
-                          <img src="assets/Error.svg" alt="Error" class="error_input">
-                          <p class="error_handler_input">Enter the right name</p>
-                      </div>
-                  </div>
-                  <div class="customShift2">
-                      <div class="headFont">Email*</div>
-                      <input type="email" id="email-input" placeholder="Enter your Email" class="ininput"/>
-                      <div id="emailError" class="error-input2">
-                          <img src="assets/Error.svg" alt="Error" class="error_input">
-                          <p class="error_handler_input">Enter the right email</p>
-                      </div>
-                  </div>
-                  <div class="input-section">
-                      <label for="roleType" class="headFont">User Type*</label>
-                      <div class="radio-container" id="roleType">
-                          <div class="radio-items_1">
-                              <input type="radio" id="producer" name="roleType" value="Manufacturer" checked>
-                              <label for="producer" class="headFont">Manufacturer</label>
-                          </div>
-                          <div class="radio-items_1">
-                              <input type="radio" id="designer" name="roleType" value="Interior Designer">
-                              <label for="designer" class="headFont">Designer</label>
-                          </div>
-                      </div>
-                  </div>                    
-              </div>
-              <div>
-                  <div id="continue-btn" class="buttonPopup">
-                      <div class="configurePopup">
-                          <span class="customSpan" id="configure">
-                              Start Configuring >
-                          </span>
-                      </div>
-                  </div>
-                  <div class="bottomPopup">
-                      <span>
-                          New to MIKASA configurator? Take a quick <span id="">tour</span>.   
-                       </span>
-                  </div>
-              </div>
-          </div>
-          <div class="initialPopupImg">
-              <div class="close-popup-button" id="initialPopupCross">
-                  <img src="assets/blackCross.svg" alt="Close" class="close-cross">
-              </div>
-              <img src="assets/iniPop.svg" alt="Loading..." >
-          </div>
-      </div>
-  </div>
 
   <!-- chosse us popup -->
   <div id="chooseUsPopup" class="popup-overlay hidden">
@@ -394,6 +331,93 @@
 </div>
 
  <!-- icons bar -->
+
+       <div class="popup-overlay-input" id="iniPopupOverlay"></div>
+
+    <!-- Saved state Popup -->
+      <div class="inputpopup" id="iniPopup">
+      <div class="outerBoxInitial">
+          <div class="leftBoxInitial">
+              <div>
+                  <div class="userInfoPopup-main-text-2">
+                      Welcome to Config Cloud!
+                  </div>
+                  <div class="userInfoPopup-subtext-2">
+                     You are just a step away from your awsomeness.
+                  </div>
+              </div>
+              <div class="namePopup">
+                  <div class="customShift1">
+                    <div class="headBox">
+                      <div class="headFont">Name*</div>
+                      <div id="nameError" class="error-input1">
+                          <img src="assets/Error.svg" alt="Error" class="error_input">
+                          <p class="error_handler_input">Enter the right name</p>
+                      </div>
+                    </div>
+                      <input type="text" id="name-input" placeholder="Enter your Name" class="ininput" autocomplete="off" />
+                  </div>
+                  <div class="customShift2">
+                    <div class="headBox">
+                      <div class="headFont">Email*</div>
+                      <div id="emailError" class="error-input2">
+                          <img src="assets/Error.svg" alt="Error" class="error_input">
+                          <p class="error_handler_input">Enter the right email</p>
+                      </div>
+                    </div>
+                      <input type="email" id="email-input" placeholder="Enter your Email" class="ininput" autocomplete="off" />
+                  </div>
+                  <div class="customShift2">
+                    <div class="headBox">
+                      <div class="headFont">Project Name*</div>
+                      <div id="projectError" class="error-input2">
+                          <img src="assets/Error.svg" alt="Error" class="error_input">
+                          <p class="error_handler_input">Enter the Project Name</p>
+                      </div>
+                    </div>
+                      <input type="text" id="project-input" placeholder="Enter your Project Name" class="ininput" autocomplete="off" />
+                  </div>
+
+                  <div class="customShift2">
+                    <div class="headBox">
+                      <div class="headFont">Room Type*</div>
+                      <div id="roomTypeError" class="error-input2">
+                        <img src="assets/Error.svg" alt="Error" class="error_input">
+                        <p class="error_handler_input">Room type</p>
+                      </div>
+                    </div>
+                      <input type="text" id="room-type-input" class="ininput" autocomplete="off" disabled value="Kitchen"/>
+                  </div>
+
+
+                  <div class="customShift2">
+                      <div class="headFont">Remarks</div>
+                      <input type="text" id="remarks-input" placeholder="Enter Remarks" class="ininput" autocomplete="off" />
+                  </div>
+                  <div class="customShift2">
+                      <label class="checkbox-container">Send Design through Email
+                      <input type="checkbox" id="send-email-checkbox" />
+                      <span class="checkmark"></span>
+                </label>
+                  </div>
+                      <div class="configurePopup" id="reachout">
+                        Save Design
+                      </div>
+                  <!-- <div class="bottomPopup">
+                      <span>
+                          New to MIKASA configurator? Take a quick <span id="howto">tour</span>.   
+                       </span>
+                  </div> -->
+             </div>
+             </div>
+          <div class="initialPopupImg">
+              <div class="close-popup-button" id="initialPopupCross">
+                  <img src="assets/blackCross.svg" alt="Close" class="close-cross">
+              </div>
+              <img src="assets/iniPop.svg" alt="Loading..." >
+          </div>
+      </div>
+  </div>
 
     <script type="module" src="/src/main.js"></script>
   </body>
